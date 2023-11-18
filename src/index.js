@@ -1,11 +1,18 @@
-import { Todo, TodoList, Note, CheckListItem } from './modules/todos';
+import { Todo, TodoList, TodoListManager, Note, CheckListItem } from './modules/todos';
+import { updateCategoryList  } from './modules/sidebarManager';
 
+const todoListManager = new TodoListManager();
 
-const todo = new Todo('Estudiar JS', 'Debería estudiar más JS.', '2024-02-02', 1);
-const note = new Note('Nota 1', 'asdasdasdkjasdkasjdk');
-todo.notes.addNote(note);
-const checkitem = new CheckListItem('Estudiar React');
-todo.checkList.addCheckListItem(checkitem);
-const list = new TodoList('Things to do');
-list.addTodo(todo);
-console.log(list.list);
+const general = todoListManager.createTodoList("General", "📄");
+const gaming = todoListManager.createTodoList("Gaming", "🎮");
+
+const todo = new Todo("todo", "description", "2023-02-02", 1);
+gaming.addTodo(todo);
+//console.log(todoListManager.getTodoLists());
+console.log(updateCategoryList(todoListManager.getTodoLists()));
+
+const testBtn = document.getElementById("testing");
+testBtn.addEventListener('click', () => {
+    todoListManager.createTodoList("Coding", "C");
+    updateCategoryList(todoListManager.getTodoLists());
+})

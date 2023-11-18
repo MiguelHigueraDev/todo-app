@@ -1,6 +1,9 @@
+import { MAX_NOTES } from "./constants";
+
 class TodoList {
-    constructor(name) {
+    constructor(name, symbol) {
         this.name = name;
+        this.symbol = symbol;
         this.list = [];
     }
 
@@ -14,6 +17,20 @@ class TodoList {
 
     getTodoList() {
         return this.list;
+    }
+}
+
+class TodoListManager {
+    static todoLists = [];
+
+    createTodoList(name, symbol) {
+        const todoList = new TodoList(name, symbol);
+        TodoListManager.todoLists.push(todoList)
+        return todoList
+    }
+
+    getTodoLists() {
+        return TodoListManager.todoLists;
     }
 }
 
@@ -48,7 +65,9 @@ class NotesManager {
     }
 
     addNote(note) {
+        if(this.notes.length >= MAX_NOTES) return false;
         this.notes.push(note);
+        return true;
     }
 
     removeNote(index) {
@@ -71,4 +90,4 @@ class CheckListManager {
 
 }
 
-export { Todo, TodoList, Note, CheckListItem }
+export { Todo, TodoList, TodoListManager, Note, CheckListItem }
