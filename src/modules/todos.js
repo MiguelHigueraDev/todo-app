@@ -1,4 +1,5 @@
 import { MAX_NOTES } from "./constants";
+import { updateCategoryList as updateDOMCategoryList } from "./sidebarManager";
 
 class TodoList {
     constructor(name, symbol) {
@@ -21,16 +22,33 @@ class TodoList {
 }
 
 class TodoListManager {
-    static todoLists = [];
+    static _todoLists = [];
 
-    createTodoList(name, symbol) {
+    static createTodoList(name, symbol) {
+        if (this.getTodoList(name)) return false;
         const todoList = new TodoList(name, symbol);
-        TodoListManager.todoLists.push(todoList)
-        return todoList
+        this._todoLists.push(todoList);
+        this.updateCategoryList();
+        return todoList;
     }
 
-    getTodoLists() {
-        return TodoListManager.todoLists;
+    static updateCategoryList() {
+        updateDOMCategoryList(this.getTodoLists());
+    }
+
+    static getTodoLists() {
+        return this._todoLists;
+    }
+
+    static getTodoList(name) {
+        return this.getTodoLists().find((e) => e.name === name);
+    }
+
+    static removeTodoList(name) {
+        const todoList = this.getTodoList(name);
+        if(!todoList) return false;
+        this._todoLists.splice(this.getTodoLists().indexOf(todoList), 1);
+        this.updateCategoryList();
     }
 }
 

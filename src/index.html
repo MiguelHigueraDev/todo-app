@@ -22,7 +22,29 @@
             </ul>
         </div>
         <div class="list-container">
-            <h3>Categories</h3>
+            <div class="categories-header">
+                <h3>Categories</h3>
+                <button id="add-category-modal-btn"><i class="fa solid fa-plus">+</i></button>
+                <dialog id="add-category-modal" class="modal">
+                    <form>
+                        <h3>Add new category</h3>
+                        <div class="form-element">
+                            <label for="category-name" class="input-label">Category name</label>
+                            <input type="text" id="category-name" maxlength="20" class="form-input">
+                            <small id="category-name-errors" class="input-error-label"></small>
+                        </div>
+                        <div class="form-element">
+                            <label for="category-symbol" class="input-label">Category icon</label>
+                            <input type="text" id="category-symbol" maxlength="2" class="form-input">
+                            <small id="category-symbol-hint">Enter a letter or an emoji</small>
+                            <small id="category-symbol-errors" class="input-error-label"></small>
+                        </div>
+                        <div class="form-element">
+                            <button type="button" id="add-new-category-btn">Add</button>
+                        </div>
+                    </form>
+                </dialog>
+            </div>
             <ul class="list" id="category-list">
             </ul>
         </div>
