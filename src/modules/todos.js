@@ -1,4 +1,3 @@
-import { MAX_NOTES } from "./constants";
 import { updateCategoryList as updateDOMCategoryList } from "./sidebarManager";
 
 const PRIORITIES = { LOW: 1, MEDIUM: 2, HIGH: 3 };
@@ -89,9 +88,7 @@ class NotesManager {
     }
 
     addNote(note) {
-        if(this.notes.length >= MAX_NOTES) return false;
         this.notes.push(note);
-        return true;
     }
 
     removeNote(index) {
