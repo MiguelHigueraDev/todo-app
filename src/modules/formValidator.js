@@ -20,9 +20,14 @@ const appendValidationErrors = (element, message) => {
     appendValidationErrorLabel(element, message);
 }
 
+const clearInputs = (form) => {
+    const inputs = form.querySelectorAll('.form-input');
+    inputs.forEach((i) => i.value = "");
+}
+
 const validateCategoryInput = (name, symbol) => {
     resetCategoryValidationErrors();
-    let validated = true;
+    let validated = {name: name.value, symbol: symbol.value};
 
     if (name.value.length < 1) {
         validated = false;
@@ -40,6 +45,7 @@ const validateCategoryInput = (name, symbol) => {
         appendValidationErrors(name, "can't be longer than 2 characters.");
     }
     
+    if(validated) clearInputs(name.parentElement.parentElement);
     return validated;
 }
 

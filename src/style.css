@@ -87,20 +87,20 @@ main {
 	font-size: 2rem;
 }
 
-
-.list-container h3 {
+.list-container {
 	font-size: 1.3rem;
-	margin-bottom: 25px;
 }
 
 .categories-header {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
 
-.categories-header i {
-
+.list-header, .categories-header {
+	margin-bottom: 16px;
 }
+
 
 .list {
 	display: flex;
@@ -111,11 +111,22 @@ main {
 .list li {
 	display: flex;
 	flex-flow: row-reverse nowrap;
-	justify-content: flex-end;
+	justify-content: space-between;
 	gap: 10px;
 	font-size: 1.2rem;
 	align-items: center;
 	height: 25px;
+}
+
+.category-list-item {
+	display: flex;
+	flex-flow: row-reverse nowrap;
+	gap: 10px;
+}
+
+.category-list-btns {
+	display: flex;
+	gap: 4px;
 }
 
 footer {
@@ -132,6 +143,25 @@ footer p {
 footer a {
 	text-decoration: none;
 }
+
+.categories-btn {
+	appearance: none;
+	align-self: flex-start;
+	padding: 4px 6px 4px 6px;
+	border-radius: 60%;
+	background-color: aqua;
+	border: 2px solid black;
+	cursor: pointer;
+}
+
+.categories-btn:hover {
+	background-color: aquamarine;
+}
+
+.categories-btn:active {
+	background-color: blue;
+}
+
 
 /* Modals */
 .modal {
@@ -261,4 +291,8 @@ footer a {
 .checklist-items li input {
 	margin: 0;
 	margin-right: 5px;
+}
+
+.hidden {
+	visibility: hidden;
 }

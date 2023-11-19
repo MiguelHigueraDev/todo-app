@@ -1,15 +1,72 @@
-const categoryListContainer = document.querySelector('#category-list');
+const categoryListContainer = document.querySelector("#category-list");
 
 const updateCategoryList = (categories) => {
     categoryListContainer.innerHTML = "";
     for(const c of categories) {
-        const cat = document.createElement('li');
-        cat.textContent = c.name;
-        const icon = document.createElement('i');
-        icon.textContent = c.symbol;
-        cat.appendChild(icon);
+        const cat = document.createElement("li");
+        const item = createCategoryItem(c.name, c.symbol);
+        const btnList = createCategoryButtonList();
+        cat.appendChild(btnList);
+        cat.appendChild(item);
         categoryListContainer.appendChild(cat);
     }
 }
 
-export { updateCategoryList }
+const toggleItemButtonVisibility = () => {
+    const buttonContainers = document.querySelectorAll(".category-list-btns");
+    for (const container of buttonContainers) {
+        if (container.classList.contains("hidden")) container.classList.remove("hidden");
+        else container.classList.add("hidden");
+    }
+
+}
+
+const createCategoryItem = (name, symbol) => {
+    const categoryItem = document.createElement('div');
+    categoryItem.classList.add('category-list-item');
+    categoryItem.textContent = name;
+    const icon = document.createElement('i');
+    icon.textContent = symbol;
+    categoryItem.appendChild(icon);
+    return categoryItem;
+}
+
+const createCategoryButtonList = () => {
+    const buttonList = document.createElement('div');
+    buttonList.classList.add('category-list-btns');
+    const editBtn = createCategoryEditButton();
+    // Remove textContent lines
+    editBtn.textContent = "E";
+    buttonList.appendChild(editBtn);
+    const deleteBtn = createCategoryDeleteButton();
+    deleteBtn.textContent = "D";
+    buttonList.appendChild(deleteBtn);
+    return buttonList;
+}
+
+const createCategoryEditButton = () => {
+    const button = document.createElement('button');
+    button.classList.add('categories-btn', 'edit-item-from-category');
+    const icon = createIcon("fa solid fa-plus");
+    button.appendChild(icon);
+    return button;
+}
+
+const createCategoryDeleteButton = () => {
+    const button = document.createElement('button');
+    button.classList.add('categories-btn', 'delete-item-from-category');
+    const icon = createIcon("fa solid fa-plus");
+    button.appendChild(icon);
+    return button;
+}
+
+const createIcon = (iconTypes) => {
+    const icon = document.createElement('i');
+    const types = iconTypes.split(" ");
+    for(const type of types) {
+        icon.classList.add(type);
+    }
+    return icon;
+}
+
+export { updateCategoryList, toggleItemButtonVisibility }
