@@ -1,7 +1,7 @@
 import { MAX_NOTES } from "./constants";
 import { updateCategoryList as updateDOMCategoryList } from "./sidebarManager";
 
-class TodoList {
+class Category {
     constructor(name, symbol) {
         this.name = name;
         this.symbol = symbol;
@@ -16,39 +16,48 @@ class TodoList {
         this.list.splice(index, 1);
     }
 
-    getTodoList() {
+    getCategory() {
         return this.list;
     }
 }
 
-class TodoListManager {
-    static _todoLists = [];
+class CategoryManager {
+    static _categories = [];
 
-    static createTodoList(name, symbol) {
-        if (this.getTodoList(name)) return false;
-        const todoList = new TodoList(name, symbol);
-        this._todoLists.push(todoList);
-        this.updateCategoryList();
-        return todoList;
+    static createCategory(name, symbol) {
+        if (this.getCategory(name)) return false;
+        const category = new Category(name, symbol);
+        this._categories.push(category);
+        this.updateCategories();
+        return category;
     }
 
-    static updateCategoryList() {
-        updateDOMCategoryList(this.getTodoLists());
+    static updateCategories() {
+        updateDOMCategoryList(this.getCategories());
     }
 
-    static getTodoLists() {
-        return this._todoLists;
+    static getCategories() {
+        return this._categories;
     }
 
-    static getTodoList(name) {
-        return this.getTodoLists().find((e) => e.name === name);
+    static getCategory(name) {
+        return this.getCategories().find((e) => e.name === name);
     }
 
-    static removeTodoList(name) {
-        const todoList = this.getTodoList(name);
-        if(!todoList) return false;
-        this._todoLists.splice(this.getTodoLists().indexOf(todoList), 1);
-        this.updateCategoryList();
+    static removeCategory(name) {
+        const category = this.getCategory(name);
+        if(!category) return false;
+        this._categories.splice(this.getCategories().indexOf(category), 1);
+        this.updateCategories();
+    }
+
+    static editCategory(list, name, symbol) {
+        const category = this.getCategory(list.name);
+        if(!category) return false;
+        category.name = name;
+        category.symbol = symbol;
+        this.updateCategories();
+        return true;
     }
 }
 
@@ -108,4 +117,4 @@ class CheckListManager {
 
 }
 
-export { Todo, TodoList, TodoListManager, Note, CheckListItem }
+export { Todo, Category, CategoryManager, Note, CheckListItem }

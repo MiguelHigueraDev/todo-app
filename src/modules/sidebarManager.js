@@ -1,4 +1,4 @@
-import { TodoListManager } from "./todos";
+import { CategoryManager } from "./todos";
 
 const categoryListContainer = document.querySelector("#category-list");
 
@@ -7,7 +7,7 @@ const updateCategoryList = (categories) => {
     for(const c of categories) {
         const cat = document.createElement("li");
         const item = createCategoryItem(c.name, c.symbol);
-        const btnList = createCategoryButtonList(c.name);
+        const btnList = createCategoryButtonList(c);
         cat.appendChild(btnList);
         cat.appendChild(item);
         categoryListContainer.appendChild(cat);
@@ -20,7 +20,6 @@ const toggleCategoryButtonVisibility = () => {
         if (container.classList.contains("hidden")) container.classList.remove("hidden");
         else container.classList.add("hidden");
     }
-
 }
 
 const createCategoryItem = (name, symbol) => {
@@ -33,23 +32,24 @@ const createCategoryItem = (name, symbol) => {
     return categoryItem;
 }
 
-const createCategoryButtonList = (name) => {
+const createCategoryButtonList = (category) => {
     const buttonList = document.createElement('div');
     buttonList.classList.add('category-list-btns', 'hidden');
-    const editBtn = createCategoryEditButton();
+    const editBtn = createCategoryEditButton(category);
     // Remove textContent lines
     editBtn.textContent = "E";
     buttonList.appendChild(editBtn);
-    const deleteBtn = createCategoryDeleteButton(name);
+    const deleteBtn = createCategoryDeleteButton(category.name);
     deleteBtn.textContent = "D";
     buttonList.appendChild(deleteBtn);
     return buttonList;
 }
 
-const createCategoryEditButton = () => {
+const createCategoryEditButton = (category) => {
     const button = document.createElement('button');
     button.classList.add('categories-btn', 'edit-category');
     const icon = createIcon("fa solid fa-plus");
+    button.addEventListener("click", () => showEditCategoryModal(category));
     button.appendChild(icon);
     return button;
 }
@@ -58,20 +58,34 @@ const createCategoryDeleteButton = (name) => {
     const button = document.createElement('button');
     button.classList.add('categories-btn', 'delete-category');
     const icon = createIcon("fa solid fa-plus");
-    button.addEventListener("click", () => showDeleteModal(name));
+    button.addEventListener("click", () => showDeleteCategoryModal(name));
     button.appendChild(icon);
     return button;
 }
 
-const showDeleteModal = (name) => {
+const showDeleteCategoryModal = (name) => {
     const deleteModal = document.getElementById("delete-category-modal");
-    deleteModal.querySelector('h3').textContent = `Are you sure you want to remove the category ${name}?`;
+    deleteModal.querySelector('strong').textContent = `${name}`;
     const deleteBtn = deleteModal.querySelector('#delete-category-btn');
     deleteBtn.addEventListener("click", () => {
-        TodoListManager.removeTodoList(name);
+        CategoryManager.removeCategory(name);
         deleteModal.close();
     });
     deleteModal.showModal();
+}
+
+const showEditCategoryModal = (category) => {
+    const editModal = document.getElementById("edit-category-modal");
+    const editCategoryName = document.getElementById("edit-category-name");
+    const editCategorySymbol = document.getElementById("edit-category-symbol");
+    editCategoryName.value = category.name;
+    editCategorySymbol.value = category.symbol;
+    const editBtn = document.getElementById("edit-category-btn");
+    editBtn.addEventListener("click", () => {
+        const deleted = CategoryManager.editCategory(category, editCategoryName.value, editCategorySymbol.value);
+        if (deleted) editModal.close();
+    });
+    editModal.showModal();
 }
 
 const createIcon = (iconTypes) => {

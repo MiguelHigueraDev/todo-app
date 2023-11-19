@@ -1,16 +1,16 @@
-import { Todo, TodoList, TodoListManager, Note, CheckListItem } from './modules/todos';
+import { Todo, Category, CategoryManager, Note, CheckListItem } from './modules/todos';
 import { validateCategoryInput } from './modules/formValidator';
 import { toggleCategoryButtonVisibility } from './modules/sidebarManager';
 
-TodoListManager.createTodoList("General", "📄");
-TodoListManager.createTodoList("Gaming", "🎮");
+CategoryManager.createCategory("General", "📄");
+CategoryManager.createCategory("Gaming", "🎮");
 
 const createCategory = () => {
     const name = document.getElementById("category-name");
     const symbol = document.getElementById("category-symbol");
     const validated = validateCategoryInput(name, symbol);
     if(!validated) return;
-    const created = TodoListManager.createTodoList(validated.name, validated.symbol);
+    const created = CategoryManager.createCategory(validated.name, validated.symbol);
     if(!created) return alert("Category already exists");
     addCategoryModal.close();
 }
@@ -42,4 +42,3 @@ for(const modal of modals) {
     }
   })
 }
-
