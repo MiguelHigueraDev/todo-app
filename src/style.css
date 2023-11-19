@@ -138,6 +138,7 @@ main {
 	display: flex;
 	flex-flow: row-reverse nowrap;
 	gap: 10px;
+	cursor: pointer;
 }
 
 .category-list-btns {
@@ -257,9 +258,13 @@ footer a {
 	border-radius: 20px;
 }
 
-.selected-filter {
+.category-info {
 	font-size: 2rem;
 	margin-bottom: 30px;
+}
+
+.category-symbol {
+	margin-right: 14px;
 }
 
 .todos-container {

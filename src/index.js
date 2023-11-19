@@ -1,11 +1,16 @@
 import "./style.css";
+import { PRIORITIES } from "./modules/constants";
 import { Todo, Category, CategoryManager, Note, CheckListItem } from './modules/todos';
-import { validateCategoryInput } from './modules/formValidator';
 import { toggleCategoryButtonVisibility } from './modules/sidebarManager';
 
-CategoryManager.createCategory("General", "📄");
+const general = CategoryManager.createCategory("General", "📄");
 CategoryManager.createCategory("Gaming", "🎮");
 
+const todo1 = new Todo("Title", "asdasdmahskjdhakjsdjkasdkjaksd", "2022-01-01", PRIORITIES.LOW);
+const todo2 = new Todo("Title2", "todoaskjdaskdakjsdajhksdjahsjkdashjkd", "2023-01-01", PRIORITIES.HIGH);
+
+general.addTodo(todo1);
+general.addTodo(todo2);
 
 const toggleButtonVisibilityBtn = document.getElementById("edit-categories-btn");
 toggleButtonVisibilityBtn.addEventListener("click", toggleCategoryButtonVisibility);

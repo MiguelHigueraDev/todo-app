@@ -1,6 +1,6 @@
 import { updateCategoryList as updateDOMCategoryList } from "./sidebarManager";
+import { PRIORITIES } from "./constants";
 
-const PRIORITIES = { LOW: 1, MEDIUM: 2, HIGH: 3 };
 
 class Category {
     constructor(name, symbol) {
@@ -17,7 +17,7 @@ class Category {
         this.list.splice(index, 1);
     }
 
-    getCategory() {
+    getTodos() {
         return this.list;
     }
 }

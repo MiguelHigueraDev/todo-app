@@ -1,5 +1,6 @@
 import { CategoryManager } from "./todos";
 import { resetCategoryValidationErrors, validateCategoryInput } from "./formValidator";
+import { displayCategoryTodos } from "./displayManager";
 
 const categoryListContainer = document.querySelector("#category-list");
 const addCategoryModal = document.getElementById("add-category-modal");
@@ -21,9 +22,9 @@ const updateCategoryList = (categories) => {
     categoryListContainer.innerHTML = "";
     for (const cat of categories) {
         const category = document.createElement("li");
-        const item = createCategoryItem(cat.name, cat.symbol);
         // Save index so category can be edited later
         const index = categories.indexOf(cat);
+        const item = createCategoryItem(cat, index);
         const btnList = createCategoryButtonList(cat, index);
         category.appendChild(btnList);
         category.appendChild(item);
@@ -36,12 +37,15 @@ const toggleCategoryButtonVisibility = () => {
     updateCategoryList(CategoryManager.getCategories());
 }
 
-const createCategoryItem = (name, symbol) => {
+// This function adds listener for clicks on each category, so todos from that category are loaded.
+const createCategoryItem = (category, index) => {
     const categoryItem = document.createElement('div');
     categoryItem.classList.add('category-list-item');
-    categoryItem.textContent = name;
+    categoryItem.textContent = category.name;
+    categoryItem.setAttribute('data-id', index);
+    categoryItem.addEventListener("click", () => displayCategoryTodos(category));
     const icon = document.createElement('i');
-    icon.textContent = symbol;
+    icon.textContent = category.symbol;
     categoryItem.appendChild(icon);
     return categoryItem;
 }
@@ -92,19 +96,19 @@ const showDeleteCategoryModal = (name) => {
 
 const showEditCategoryModal = (e, category) => {
     resetCategoryValidationErrors();
-    const index = e.target.getAttribute('data-id');
+    const categoryIndex = e.target.getAttribute('data-id');
     const editModal = document.getElementById("edit-category-modal");
     const editCategoryName = document.getElementById("edit-category-name");
     const editCategorySymbol = document.getElementById("edit-category-symbol");
     editCategoryName.value = category.name;
     editCategorySymbol.value = category.symbol;
     const editBtn = document.getElementById("edit-category-btn");
-    editBtn.setAttribute('data-id', index);
+    editBtn.setAttribute('data-id', categoryIndex);
     editBtn.addEventListener("click", (e) => {
-        const index = e.target.getAttribute('data-id');
+        const categoryIndex = e.target.getAttribute('data-id');
         const validated = validateCategoryInput(editCategoryName, editCategorySymbol);
         if(validated) {
-            CategoryManager.editCategory(index, validated.name, validated.symbol);
+            CategoryManager.editCategory(categoryIndex, validated.name, validated.symbol);
             editModal.close();
         } 
     });
@@ -114,7 +118,7 @@ const showEditCategoryModal = (e, category) => {
 const createIcon = (iconTypes) => {
     const icon = document.createElement('i');
     const types = iconTypes.split(" ");
-    for(const type of types) {
+    for (const type of types) {
         icon.classList.add(type);
     }
     return icon;
