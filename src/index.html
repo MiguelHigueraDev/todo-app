@@ -50,7 +50,13 @@
             </div>
             <ul class="list" id="category-list">
             </ul>
-            <dialog id="edit-category-modal" class="modal" open>
+            <dialog id="delete-category-modal" class="modal">
+                <h3>Are you sure you want to remove the category?</h3>
+                <div class="form-element">
+                    <button type="button" id="delete-category-btn">Remove</button>
+                </div>
+            </dialog>
+            <dialog id="edit-category-modal" class="modal">
                 <form id="edit-category">
                     <h3>Edit category</h3>
                     <div class="form-element">
@@ -68,7 +74,7 @@
                         <button type="button" id="edit-category-btn">Edit</button>
                     </div>
                 </form>
-               </dialog>
+            </dialog>
         </div>
         <div class="list-container">
             <h3>Completed</h3>

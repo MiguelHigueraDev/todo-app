@@ -58,9 +58,20 @@ const createCategoryDeleteButton = (name) => {
     const button = document.createElement('button');
     button.classList.add('categories-btn', 'delete-category');
     const icon = createIcon("fa solid fa-plus");
-    button.addEventListener("click", () => TodoListManager.removeTodoList(name));
+    button.addEventListener("click", () => showDeleteModal(name));
     button.appendChild(icon);
     return button;
+}
+
+const showDeleteModal = (name) => {
+    const deleteModal = document.getElementById("delete-category-modal");
+    deleteModal.querySelector('h3').textContent = `Are you sure you want to remove the category ${name}?`;
+    const deleteBtn = deleteModal.querySelector('#delete-category-btn');
+    deleteBtn.addEventListener("click", () => {
+        TodoListManager.removeTodoList(name);
+        deleteModal.close();
+    });
+    deleteModal.showModal();
 }
 
 const createIcon = (iconTypes) => {

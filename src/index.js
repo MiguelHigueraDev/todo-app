@@ -28,14 +28,18 @@ modalBtn.addEventListener('click', () => {
 })
 
 // Handle backdrop clicks
-addCategoryModal.addEventListener("click", (event) => {
-    var rect = addCategoryModal.getBoundingClientRect();
+const modals = document.querySelectorAll(".modal");
+for(const modal of modals) {
+  modal.addEventListener("click", (e) => {
+    var rect = modal.getBoundingClientRect();
     var isInDialog =
-      rect.top <= event.clientY &&
-      event.clientY <= rect.top + rect.height &&
-      rect.left <= event.clientX &&
-      event.clientX <= rect.left + rect.width;
+      rect.top <= e.clientY &&
+      e.clientY <= rect.top + rect.height &&
+      rect.left <= e.clientX &&
+      e.clientX <= rect.left + rect.width;
     if (!isInDialog) {
-      addCategoryModal.close();
+      modal.close();
     }
-});
+  })
+}
+
