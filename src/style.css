@@ -60,22 +60,32 @@ html {
 strong {
 	font-weight: 600;
 }
-/* Base layout */
 
+:root {
+	--primary-bg-color: #94a3b8;
+	--secondary-color: #059669;
+	--secondary-color-hover: #10b981;
+	--secondary-color-active: #34d399;
+	--secondary-bg-color: #475569;
+	--todo-color: #e4e4e7;
+}
+
+/* Base layout */
 body {
     display: grid;
     grid-template-columns: min-content 1fr;
 	height: 100vh;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 }
 
 nav {
-    background-color: beige;
+    background-color: var(--secondary-bg-color);
 }
 
 main {
-    background-color: gray;
+    background-color: var(--primary-bg-color);
 	overflow-y: auto;
+	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 /* Sidebar */
@@ -85,10 +95,13 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
+	color: white;
 }
 
 .logo > h1 {
 	font-size: 2rem;
+	font-weight: 900;
+	color: var(--secondary-color-active);
 }
 
 .list-container {
@@ -101,21 +114,12 @@ main {
 	align-items: center;
 }
 
+.categories-header h3 {
+	font-weight: 700;
+}
+
 .list-header, .categories-header {
 	margin-bottom: 16px;
-}
-
-#time-period-list {
-	display: flex;
-	flex-flow: column nowrap;
-	gap: 15px;
-}
-
-#time-period-list li {
-	display: flex;
-	gap: 10px;
-	flex-flow: row-reverse nowrap;
-	justify-content: flex-end;
 }
 
 #category-list {
@@ -132,6 +136,7 @@ main {
 	font-size: 1.2rem;
 	align-items: center;
 	height: 25px;
+	font-weight: 500;
 }
 
 .category-list-item {
@@ -139,6 +144,10 @@ main {
 	flex-flow: row-reverse nowrap;
 	gap: 10px;
 	cursor: pointer;
+}
+
+.category-list-item:hover {
+	color: var(--secondary-color-hover);
 }
 
 .category-list-btns {
@@ -155,10 +164,16 @@ footer {
 
 footer p {
 	font-size: 1.1rem;
+	font-weight: 500;
 }
 
 footer a {
 	text-decoration: none;
+	color: var(--secondary-color-hover);
+}
+
+footer a:hover {
+	color: var(--secondary-color-active)
 }
 
 .categories-btn {
@@ -166,17 +181,17 @@ footer a {
 	align-self: flex-start;
 	padding: 4px 6px 4px 6px;
 	border-radius: 60%;
-	background-color: aqua;
-	border: 2px solid black;
+	border: transparent;
 	cursor: pointer;
+	font-size: 18px;
 }
 
 .categories-btn:hover {
-	background-color: aquamarine;
+	background-color: var(--secondary-color-hover);
 }
 
 .categories-btn:active {
-	background-color: blue;
+	background-color: var(--secondary-color-active);
 }
 
 
@@ -192,6 +207,7 @@ footer a {
 .modal h3 {
 	margin-bottom: 4px;
 	font-size: 1.4rem;
+	font-weight: 600;
 }
 
 .modal form {
@@ -205,16 +221,19 @@ footer a {
 	appearance: none;
 	padding: 6px;
 	border: 1px solid black;
-	background-color: aqua;
+	background-color: var(--secondary-color);
 	border-radius: 14px;
+	cursor: pointer;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
 }
 
 .form-element > button:hover {
-	background-color: aquamarine;
+	background-color: var(--secondary-color-hover);
 }
 
 .form-element > button:active {
-	background-color: blue;
+	background-color: var(--secondary-color-active);
 }
 
 .modal .form-element > input {
@@ -223,6 +242,7 @@ footer a {
 }
 
 .form-element {
+	font-weight: 500;
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
@@ -230,6 +250,7 @@ footer a {
 
 .form-element small {
 	font-size: 0.9rem;
+	font-weight: 200;
 }
 
 .input-error-label {
@@ -252,15 +273,15 @@ footer a {
 
 /* Todos display */
 .main-container {
-	margin: 100px;
-	padding: 80px;
+	margin: 20px;
+	padding: 40px;
 	background-color: white;
 	border-radius: 20px;
 }
 
 .category-info {
+	font-weight: 600;
 	font-size: 2rem;
-	margin-bottom: 30px;
 }
 
 .category-symbol {
@@ -274,51 +295,35 @@ footer a {
 	gap: 20px;
 }
 
+.todos-header {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+.todos-header button {
+	appearance: none;
+	padding: 14px;
+	background-color: var(--secondary-color);
+	color: white;
+	border: transparent;
+}
+
 .todo {
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	gap: 14px;
-	background-color: blanchedalmond;
+	background-color: var(--todo-color);
 	border-radius: 20px;
 	max-width: 400px;
 	width: 100%;
 }
 
-.todo-notes ul{
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-.todo-notes li {
-	background-color: aqua;
-	padding: 10px;
-	border-radius: 10px;
-}
-
-.checklist-items {
-	background-color: white;
-	padding: 10px;
-	border-radius: 10px;
-}
-
-.checklist-items ul {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.checklist-items li {
-	display: flex;
-	margin-left: 10px;
-}
-
-.checklist-items li input {
-	margin: 0;
-	margin-right: 5px;
+.todo h4 {
+	font-weight: 600;
 }
 
 .hidden {

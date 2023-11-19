@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!--<script src="https://kit.fontawesome.com/56299f684d.js" crossorigin="anonymous"></script>-->
 </head>
 <body>
@@ -15,8 +18,8 @@
             <div class="categories-header">
                 <h3>Categories</h3>
                 <div class="categories-btn-container">
-                    <button id="edit-categories-btn" class="categories-btn"><i class="fa solid fa-plus">E</i></button>
-                    <button id="add-category-modal-btn" class="categories-btn"><i class="fa solid fa-plus">+</i></button>
+                    <button id="edit-categories-btn" class="categories-btn"><i class="fa solid fa-pen-to-square"></i></button>
+                    <button id="add-category-modal-btn"  class="categories-btn"><i class="fa solid fa-plus"></i></button>
                 </div>
                 <dialog id="add-category-modal" class="modal">
                     <form id="add-new-category">
@@ -72,12 +75,12 @@
     </nav>
     <main>
         <div class="main-container">
-            <h1 class="category-info"><span class="category-symbol">S</span><span class="category-name"></span></h1>
+            <div class="todos-header">
+                <h1 class="category-info"><span class="category-symbol">Select a category to view todos</span><span class="category-name"></span></h1>
+                <button class="todos-header-add-new categories-btn"><i class="fa solid fa-plus"></i></button>
+            </div>
             <div class="todos-container">
-                <article class="todo">
-                    <h4>Title</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod culpa saepe laboriosam accusamus at error in facilis sapiente neque magni ullam reiciendis magnam laudantium ad rem, doloremque natus est aspernatur quos ab nemo. Fugit quis, ea maiores fugiat vero architecto?</p>
-                </article>
+                
             </div>
         </div>
     </main>

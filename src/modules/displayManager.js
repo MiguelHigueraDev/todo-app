@@ -16,7 +16,6 @@ const displayCategoryTodos = (index) => {
     updateCategorySymbol(symbol);
     removeTodoDivs();
     createTodoDivs(todos);
-
 }
 
 const createTodoDivs = (todos) => {

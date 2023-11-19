@@ -55,11 +55,8 @@ const createCategoryButtonList = (category, index) => {
     if(buttonsHidden) buttonList.classList.add('category-list-btns', 'hidden');
     else buttonList.classList.add('category-list-btns');
     const editBtn = createCategoryEditButton(category, index);
-    // Remove textContent lines
-    editBtn.textContent = "E";
     buttonList.appendChild(editBtn);
     const deleteBtn = createCategoryDeleteButton(category.name);
-    deleteBtn.textContent = "D";
     buttonList.appendChild(deleteBtn);
     return buttonList;
 }
@@ -67,7 +64,7 @@ const createCategoryButtonList = (category, index) => {
 const createCategoryEditButton = (category, index) => {
     const button = document.createElement('button');
     button.classList.add('categories-btn', 'edit-category');
-    const icon = createIcon("fa solid fa-plus");
+    const icon = createIcon("fa solid fa-pen-to-square");
     button.addEventListener("click", (e) => showEditCategoryModal(e, category));
     button.setAttribute('data-id', index);
     button.appendChild(icon);
@@ -77,7 +74,7 @@ const createCategoryEditButton = (category, index) => {
 const createCategoryDeleteButton = (name) => {
     const button = document.createElement('button');
     button.classList.add('categories-btn', 'delete-category');
-    const icon = createIcon("fa solid fa-plus");
+    const icon = createIcon("fa solid fa-trash");
     button.addEventListener("click", () => showDeleteCategoryModal(name));
     button.appendChild(icon);
     return button;
