@@ -1,3 +1,4 @@
+import "./style.css";
 import { Todo, Category, CategoryManager, Note, CheckListItem } from './modules/todos';
 import { validateCategoryInput } from './modules/formValidator';
 import { toggleCategoryButtonVisibility } from './modules/sidebarManager';
