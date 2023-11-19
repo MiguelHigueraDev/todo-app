@@ -51,8 +51,8 @@ class CategoryManager {
         this.updateCategories();
     }
 
-    static editCategory(list, name, symbol) {
-        const category = this.getCategory(list.name);
+    static editCategory(cat, name, symbol) {
+        const category = this.getCategory(cat.name);
         if(!category) return false;
         category.name = name;
         category.symbol = symbol;

@@ -49,4 +49,4 @@ const validateCategoryInput = (name, symbol) => {
     return validated;
 }
 
-export { validateCategoryInput }
+export { validateCategoryInput, resetCategoryValidationErrors }

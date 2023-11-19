@@ -1,6 +1,21 @@
 import { CategoryManager } from "./todos";
+import { resetCategoryValidationErrors, validateCategoryInput } from "./formValidator";
 
 const categoryListContainer = document.querySelector("#category-list");
+const addCategoryModal = document.getElementById("add-category-modal");
+const addCategoryBtn = document.getElementById("add-new-category-btn");
+const modalBtn = document.getElementById("add-category-modal-btn");
+let buttonsHidden = true;
+
+const createCategory = () => {
+    const name = document.getElementById("category-name");
+    const symbol = document.getElementById("category-symbol");
+    const validated = validateCategoryInput(name, symbol);
+    if(!validated) return;
+    const created = CategoryManager.createCategory(validated.name, validated.symbol);
+    if(!created) return alert("Category already exists");
+    addCategoryModal.close();
+}
 
 const updateCategoryList = (categories) => {
     categoryListContainer.innerHTML = "";
@@ -15,11 +30,8 @@ const updateCategoryList = (categories) => {
 }
 
 const toggleCategoryButtonVisibility = () => {
-    const buttonContainers = document.querySelectorAll(".category-list-btns");
-    for (const container of buttonContainers) {
-        if (container.classList.contains("hidden")) container.classList.remove("hidden");
-        else container.classList.add("hidden");
-    }
+    buttonsHidden = !buttonsHidden;
+    updateCategoryList(CategoryManager.getCategories());
 }
 
 const createCategoryItem = (name, symbol) => {
@@ -34,7 +46,8 @@ const createCategoryItem = (name, symbol) => {
 
 const createCategoryButtonList = (category) => {
     const buttonList = document.createElement('div');
-    buttonList.classList.add('category-list-btns', 'hidden');
+    if(buttonsHidden) buttonList.classList.add('category-list-btns', 'hidden');
+    else buttonList.classList.add('category-list-btns');
     const editBtn = createCategoryEditButton(category);
     // Remove textContent lines
     editBtn.textContent = "E";
@@ -75,6 +88,7 @@ const showDeleteCategoryModal = (name) => {
 }
 
 const showEditCategoryModal = (category) => {
+    resetCategoryValidationErrors();
     const editModal = document.getElementById("edit-category-modal");
     const editCategoryName = document.getElementById("edit-category-name");
     const editCategorySymbol = document.getElementById("edit-category-symbol");
@@ -82,8 +96,11 @@ const showEditCategoryModal = (category) => {
     editCategorySymbol.value = category.symbol;
     const editBtn = document.getElementById("edit-category-btn");
     editBtn.addEventListener("click", () => {
-        const deleted = CategoryManager.editCategory(category, editCategoryName.value, editCategorySymbol.value);
-        if (deleted) editModal.close();
+        const validated = validateCategoryInput(editCategoryName, editCategorySymbol);
+        if(validated) {
+            CategoryManager.editCategory(category, validated.name, validated.symbol);
+            editModal.close();
+        } 
     });
     editModal.showModal();
 }
@@ -96,5 +113,10 @@ const createIcon = (iconTypes) => {
     }
     return icon;
 }
+
+modalBtn.addEventListener('click', () => {
+    addCategoryModal.showModal();
+});
+addCategoryBtn.addEventListener("click", createCategory);
 
 export { updateCategoryList, toggleCategoryButtonVisibility }

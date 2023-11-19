@@ -5,27 +5,10 @@ import { toggleCategoryButtonVisibility } from './modules/sidebarManager';
 CategoryManager.createCategory("General", "📄");
 CategoryManager.createCategory("Gaming", "🎮");
 
-const createCategory = () => {
-    const name = document.getElementById("category-name");
-    const symbol = document.getElementById("category-symbol");
-    const validated = validateCategoryInput(name, symbol);
-    if(!validated) return;
-    const created = CategoryManager.createCategory(validated.name, validated.symbol);
-    if(!created) return alert("Category already exists");
-    addCategoryModal.close();
-}
-
-const addCategoryBtn = document.getElementById("add-new-category-btn");
-addCategoryBtn.addEventListener("click", createCategory);
 
 const toggleButtonVisibilityBtn = document.getElementById("edit-categories-btn");
 toggleButtonVisibilityBtn.addEventListener("click", toggleCategoryButtonVisibility);
 
-const addCategoryModal = document.getElementById("add-category-modal");
-const modalBtn = document.getElementById("add-category-modal-btn");
-modalBtn.addEventListener('click', () => {
-    addCategoryModal.showModal();
-})
 
 // Handle backdrop clicks
 const modals = document.querySelectorAll(".modal");
