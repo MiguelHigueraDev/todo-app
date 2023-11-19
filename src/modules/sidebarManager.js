@@ -11,21 +11,23 @@ const createCategory = () => {
     const name = document.getElementById("category-name");
     const symbol = document.getElementById("category-symbol");
     const validated = validateCategoryInput(name, symbol);
-    if(!validated) return;
+    if (!validated) return;
     const created = CategoryManager.createCategory(validated.name, validated.symbol);
-    if(!created) return alert("Category already exists");
+    if (!created) return alert("Category already exists");
     addCategoryModal.close();
 }
 
 const updateCategoryList = (categories) => {
     categoryListContainer.innerHTML = "";
-    for(const c of categories) {
-        const cat = document.createElement("li");
-        const item = createCategoryItem(c.name, c.symbol);
-        const btnList = createCategoryButtonList(c);
-        cat.appendChild(btnList);
-        cat.appendChild(item);
-        categoryListContainer.appendChild(cat);
+    for (const cat of categories) {
+        const category = document.createElement("li");
+        const item = createCategoryItem(cat.name, cat.symbol);
+        // Save index so category can be edited later
+        const index = categories.indexOf(cat);
+        const btnList = createCategoryButtonList(cat, index);
+        category.appendChild(btnList);
+        category.appendChild(item);
+        categoryListContainer.appendChild(category);
     }
 }
 
@@ -44,11 +46,11 @@ const createCategoryItem = (name, symbol) => {
     return categoryItem;
 }
 
-const createCategoryButtonList = (category) => {
+const createCategoryButtonList = (category, index) => {
     const buttonList = document.createElement('div');
     if(buttonsHidden) buttonList.classList.add('category-list-btns', 'hidden');
     else buttonList.classList.add('category-list-btns');
-    const editBtn = createCategoryEditButton(category);
+    const editBtn = createCategoryEditButton(category, index);
     // Remove textContent lines
     editBtn.textContent = "E";
     buttonList.appendChild(editBtn);
@@ -58,11 +60,12 @@ const createCategoryButtonList = (category) => {
     return buttonList;
 }
 
-const createCategoryEditButton = (category) => {
+const createCategoryEditButton = (category, index) => {
     const button = document.createElement('button');
     button.classList.add('categories-btn', 'edit-category');
     const icon = createIcon("fa solid fa-plus");
-    button.addEventListener("click", () => showEditCategoryModal(category));
+    button.addEventListener("click", (e) => showEditCategoryModal(e, category));
+    button.setAttribute('data-id', index);
     button.appendChild(icon);
     return button;
 }
@@ -87,18 +90,21 @@ const showDeleteCategoryModal = (name) => {
     deleteModal.showModal();
 }
 
-const showEditCategoryModal = (category) => {
+const showEditCategoryModal = (e, category) => {
     resetCategoryValidationErrors();
+    const index = e.target.getAttribute('data-id');
     const editModal = document.getElementById("edit-category-modal");
     const editCategoryName = document.getElementById("edit-category-name");
     const editCategorySymbol = document.getElementById("edit-category-symbol");
     editCategoryName.value = category.name;
     editCategorySymbol.value = category.symbol;
     const editBtn = document.getElementById("edit-category-btn");
-    editBtn.addEventListener("click", () => {
+    editBtn.setAttribute('data-id', index);
+    editBtn.addEventListener("click", (e) => {
+        const index = e.target.getAttribute('data-id');
         const validated = validateCategoryInput(editCategoryName, editCategorySymbol);
         if(validated) {
-            CategoryManager.editCategory(category, validated.name, validated.symbol);
+            CategoryManager.editCategory(index, validated.name, validated.symbol);
             editModal.close();
         } 
     });
