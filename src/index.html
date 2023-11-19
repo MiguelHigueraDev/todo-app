@@ -49,8 +49,26 @@
                 </dialog>
             </div>
             <ul class="list" id="category-list">
-               
             </ul>
+            <dialog id="edit-category-modal" class="modal" open>
+                <form id="edit-category">
+                    <h3>Edit category</h3>
+                    <div class="form-element">
+                        <label for="edit-category-name" class="input-label">Category name</label>
+                        <input type="text" id="edit-category-name" maxlength="20" class="form-input">
+                        <small id="edit-category-name-errors" class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <label for="edit-category-symbol" class="input-label">Category icon</label>
+                        <input type="text" id="edit-category-symbol" maxlength="2" class="form-input">
+                        <small id="edit-category-symbol-hint">Enter a letter or an emoji</small>
+                        <small id="edit-category-symbol-errors" class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <button type="button" id="edit-category-btn">Add</button>
+                    </div>
+                </form>
+               </dialog>
         </div>
         <div class="list-container">
             <h3>Completed</h3>

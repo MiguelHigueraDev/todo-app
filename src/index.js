@@ -1,6 +1,6 @@
 import { Todo, TodoList, TodoListManager, Note, CheckListItem } from './modules/todos';
 import { validateCategoryInput } from './modules/formValidator';
-import { toggleItemButtonVisibility } from './modules/sidebarManager';
+import { toggleCategoryButtonVisibility } from './modules/sidebarManager';
 
 TodoListManager.createTodoList("General", "📄");
 TodoListManager.createTodoList("Gaming", "🎮");
@@ -19,7 +19,7 @@ const addCategoryBtn = document.getElementById("add-new-category-btn");
 addCategoryBtn.addEventListener("click", createCategory);
 
 const toggleButtonVisibilityBtn = document.getElementById("edit-categories-btn");
-toggleButtonVisibilityBtn.addEventListener("click", toggleItemButtonVisibility);
+toggleButtonVisibilityBtn.addEventListener("click", toggleCategoryButtonVisibility);
 
 const addCategoryModal = document.getElementById("add-category-modal");
 const modalBtn = document.getElementById("add-category-modal-btn");

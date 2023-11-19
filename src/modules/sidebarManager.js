@@ -1,3 +1,5 @@
+import { TodoListManager } from "./todos";
+
 const categoryListContainer = document.querySelector("#category-list");
 
 const updateCategoryList = (categories) => {
@@ -5,14 +7,14 @@ const updateCategoryList = (categories) => {
     for(const c of categories) {
         const cat = document.createElement("li");
         const item = createCategoryItem(c.name, c.symbol);
-        const btnList = createCategoryButtonList();
+        const btnList = createCategoryButtonList(c.name);
         cat.appendChild(btnList);
         cat.appendChild(item);
         categoryListContainer.appendChild(cat);
     }
 }
 
-const toggleItemButtonVisibility = () => {
+const toggleCategoryButtonVisibility = () => {
     const buttonContainers = document.querySelectorAll(".category-list-btns");
     for (const container of buttonContainers) {
         if (container.classList.contains("hidden")) container.classList.remove("hidden");
@@ -31,14 +33,14 @@ const createCategoryItem = (name, symbol) => {
     return categoryItem;
 }
 
-const createCategoryButtonList = () => {
+const createCategoryButtonList = (name) => {
     const buttonList = document.createElement('div');
-    buttonList.classList.add('category-list-btns');
+    buttonList.classList.add('category-list-btns', 'hidden');
     const editBtn = createCategoryEditButton();
     // Remove textContent lines
     editBtn.textContent = "E";
     buttonList.appendChild(editBtn);
-    const deleteBtn = createCategoryDeleteButton();
+    const deleteBtn = createCategoryDeleteButton(name);
     deleteBtn.textContent = "D";
     buttonList.appendChild(deleteBtn);
     return buttonList;
@@ -46,16 +48,17 @@ const createCategoryButtonList = () => {
 
 const createCategoryEditButton = () => {
     const button = document.createElement('button');
-    button.classList.add('categories-btn', 'edit-item-from-category');
+    button.classList.add('categories-btn', 'edit-category');
     const icon = createIcon("fa solid fa-plus");
     button.appendChild(icon);
     return button;
 }
 
-const createCategoryDeleteButton = () => {
+const createCategoryDeleteButton = (name) => {
     const button = document.createElement('button');
-    button.classList.add('categories-btn', 'delete-item-from-category');
+    button.classList.add('categories-btn', 'delete-category');
     const icon = createIcon("fa solid fa-plus");
+    button.addEventListener("click", () => TodoListManager.removeTodoList(name));
     button.appendChild(icon);
     return button;
 }
@@ -69,4 +72,4 @@ const createIcon = (iconTypes) => {
     return icon;
 }
 
-export { updateCategoryList, toggleItemButtonVisibility }
+export { updateCategoryList, toggleCategoryButtonVisibility }
