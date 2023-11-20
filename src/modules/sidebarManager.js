@@ -1,5 +1,5 @@
 import { CategoryManager } from "./todos";
-import { resetCategoryValidationErrors, validateCategoryInput } from "./formValidator";
+import { validateCategoryInput } from "./formValidator";
 import { displayCategoryTodos } from "./displayManager";
 
 const categoryListContainer = document.querySelector("#category-list");
@@ -54,23 +54,9 @@ const createCategoryButtonList = (category, index) => {
     const buttonList = document.createElement('div');
     if(buttonsHidden) buttonList.classList.add('category-list-btns', 'hidden');
     else buttonList.classList.add('category-list-btns');
-    const editBtn = createCategoryEditButton(category, index);
-    buttonList.appendChild(editBtn);
     const deleteBtn = createCategoryDeleteButton(category.name);
     buttonList.appendChild(deleteBtn);
     return buttonList;
-}
-
-const createCategoryEditButton = (category, index) => {
-    const button = document.createElement('button');
-    button.classList.add('btn', 'edit-category');
-    const icon = createIcon("fa solid fa-pen-to-square");
-    button.addEventListener("click", (e) => showEditCategoryModal(e, category));
-    button.setAttribute('data-id', index);
-    // Add ID to icon so it works when clicking icon as well
-    icon.setAttribute('data-id', index);
-    button.appendChild(icon);
-    return button;
 }
 
 const createCategoryDeleteButton = (name) => {
@@ -91,27 +77,6 @@ const showDeleteCategoryModal = (name) => {
         deleteModal.close();
     });
     deleteModal.showModal();
-}
-
-const showEditCategoryModal = (e, category) => {
-    resetCategoryValidationErrors();
-    const categoryIndex = e.target.getAttribute('data-id');
-    const editModal = document.getElementById("edit-category-modal");
-    const editCategoryName = document.getElementById("edit-category-name");
-    const editCategorySymbol = document.getElementById("edit-category-symbol");
-    editCategoryName.value = category.name;
-    editCategorySymbol.value = category.symbol;
-    const editBtn = document.getElementById("edit-category-btn");
-    editBtn.setAttribute('data-id', categoryIndex);
-    editBtn.addEventListener("click", (e) => {
-        const categoryIndex = e.target.getAttribute('data-id');
-        const validated = validateCategoryInput(editCategoryName, editCategorySymbol);
-        if(validated) {
-            CategoryManager.editCategory(categoryIndex, validated.name, validated.symbol);
-            editModal.close();
-        } 
-    });
-    editModal.showModal();
 }
 
 const createIcon = (iconTypes) => {

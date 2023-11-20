@@ -152,6 +152,7 @@ main {
 	gap: 10px;
 	cursor: pointer;
 	font-size: 1.1rem;
+	align-items: center;
 }
 
 .category-list-item:hover {
@@ -256,6 +257,16 @@ footer a:hover {
 	font-size: 1.1rem;
 }
 
+.modal .form-element > select {
+	padding: 4px;
+	font-size: 1.1rem;
+}
+
+.modal .form-element label > input[type="checkbox"] {
+	margin: 0;
+	margin-right: 10px;
+}
+
 .form-element {
 	font-weight: 500;
 	display: flex;
@@ -318,12 +329,28 @@ footer a:hover {
 	margin-bottom: 40px;
 }
 
-.todos-header button {
+.todos-header-add-new {
 	appearance: none;
 	padding: 14px;
 	background-color: var(--secondary-color);
 	color: white;
 	border: transparent;
+}
+
+.todos-header-edit-category {
+	appearance: none;
+	padding: 14px;
+	background-color: var(--secondary-bg-color);
+	color: white;
+	border: transparent;
+}
+
+.todos-header-edit-category:hover {
+	background-color: var(--primary-bg-color);
+}
+
+.todos-header-edit-category:active {
+	background-color: #b8c7dd;
 }
 
 .todo {
@@ -357,6 +384,11 @@ footer a:hover {
 	display: flex;
 	flex-direction: row-reverse;
 	gap: 10px;
+	flex-grow: 1;
+}
+
+.todo-button-container button {
+	align-self: end;
 }
 
 .hidden {
@@ -397,8 +429,14 @@ footer a:hover {
 		border-radius: 20px;
 	}
 
-	.todos-header button::after {
-		content: "Add todo";
+	.todos-header-edit-category::after {
+		content: "Edit";
+		margin-left: 10px;
+		font-weight: 500;
+	}
+
+	.todos-header-add-new::after {
+		content: "Add";
 		margin-left: 10px;
 		font-weight: 500;
 	}

@@ -1,4 +1,7 @@
-const resetCategoryValidationErrors = () => {
+import format from "date-fns/format";
+import addDays from "date-fns/addDays";
+
+const resetValidationErrors = () => {
     const inputs = document.querySelectorAll('.form-input');
     inputs.forEach((i) => i.classList.remove('input-error'));
     const labels = document.querySelectorAll('.input-error-label');
@@ -23,10 +26,14 @@ const appendValidationErrors = (element, message) => {
 const clearInputs = (form) => {
     const inputs = form.querySelectorAll('.form-input');
     inputs.forEach((i) => i.value = "");
+    const checkboxes = form.querySelectorAll(".form-checkbox");
+    checkboxes.forEach((i) => i.checked = false);
+    const selects = form.querySelectorAll(".form-select");
+    selects.forEach((i) => i.selectedIndex = 0);
 }
 
 const validateCategoryInput = (name, symbol) => {
-    resetCategoryValidationErrors();
+    resetValidationErrors();
     let validated = {name: name.value, symbol: symbol.value};
 
     if (name.value.length < 1) {
@@ -49,4 +56,43 @@ const validateCategoryInput = (name, symbol) => {
     return validated;
 }
 
-export { validateCategoryInput, resetCategoryValidationErrors }
+const validateTodoInput = (title, description, dueDate, priority, checked) => {
+    resetValidationErrors();
+
+    let validated = null;
+    
+    if (title.value.length < 1) {
+        validated = false;
+        appendValidationErrors(title, "can't be empty.");
+    } else if(title.value.length > 50) {
+        validated = false;
+        appendValidationErrors(title, "can't be longer than 50 characters.");
+    }
+
+    if (description.value.length > 100) {
+        validated = false;
+        appendValidationErrors(description, "can't be longer than 100 characters");
+    } 
+
+    if (validated === false ) return;
+    validated = { title: title.value, description: description.value, dueDate: dueDate.value, priority: priority.value, checked: checked.checked }
+
+    // Set date to tomorrow if not specified.
+    if (dueDate.value.length < 1) {
+        const currentDate = new Date();
+        let tomorrow = addDays(currentDate, 1);
+        tomorrow = format(tomorrow, "dd-MM-yyyy");
+        validated.dueDate = tomorrow;
+    }
+
+    if (priority.value == null) {
+        validated.priority = "todo-priority-low";
+    }
+
+    validated.checked = (validated.checked) ? true : false;
+
+    if(validated) clearInputs(title.parentElement.parentElement);
+    return validated;
+}
+
+export { validateCategoryInput, validateTodoInput, resetValidationErrors }

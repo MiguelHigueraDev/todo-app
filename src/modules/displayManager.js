@@ -1,4 +1,17 @@
-import { CategoryManager } from "./todos";
+import { validateTodoInput, resetValidationErrors, validateCategoryInput } from "./formValidator";
+import { CategoryManager, Todo } from "./todos";
+
+const addTodoButton = document.querySelector(".todos-header-add-new");
+const editCategoryButton = document.querySelector(".todos-header-edit-category");
+const submitAddTodoButton = document.querySelector("#add-todo-btn");
+
+const addTodoModal = document.querySelector("#create-todo-modal");
+
+const titleInput = document.getElementById("todo-title");
+const descriptionInput = document.getElementById("todo-description");
+const dueDateInput = document.getElementById("todo-due-date");
+const priorityInput = document.getElementById("todo-priority");
+const checkedInput = document.getElementById("todo-checked");
 
 // Display todo grid
 const getCategoryTodos = (category) => {
@@ -85,8 +98,7 @@ const createButtonIcon = (classes) => {
 
 const updateAddTodoButtonCategoryId = (category) => {
     const index = CategoryManager.getCategoryIndex(category);
-    const button = document.querySelector(".todos-header-add-new");
-    button.setAttribute("data-id", index);
+    addTodoButton.setAttribute("data-id", index);
 }
 
 const updateCategoryName = (name) => {
@@ -99,9 +111,55 @@ const updateCategorySymbol = (symbol) => {
     categorySymbol.textContent = symbol;
 }
 
-// Display modals
-const showAddTodoModal = () => {
-    
+const getCategory = () => {
+    const categoryIndex = addTodoButton.getAttribute('data-id');
+    const category = CategoryManager.getCategoryByIndex(categoryIndex);
+    return category;
 }
+
+// Add todo
+addTodoButton.addEventListener("click", () => {
+    addTodoModal.showModal();
+});
+
+const createTodo = () => {
+    const validated = validateTodoInput(titleInput, descriptionInput, dueDateInput, priorityInput, checkedInput);
+    const category = getCategory();
+    const { title, description, dueDate, priority, checked } = validated;
+    const todo = new Todo(title, description, dueDate, priority, checked);
+    category.addTodo(todo);
+    addTodoModal.close();
+    displayCategoryTodos(category);
+}
+
+submitAddTodoButton.addEventListener("click", createTodo);
+
+
+//Edit category
+
+const showEditCategoryModal = () => {
+    resetValidationErrors();
+    const category = getCategory();
+    const editModal = document.getElementById("edit-category-modal");
+    const editCategoryName = document.getElementById("edit-category-name");
+    const editCategorySymbol = document.getElementById("edit-category-symbol");
+    editCategoryName.value = category.name;
+    editCategorySymbol.value = category.symbol;
+    const editBtn = document.getElementById("edit-category-btn");
+    editBtn.addEventListener("click", (e) => {
+        const categoryIndex = addTodoButton.getAttribute('data-id');
+        const validated = validateCategoryInput(editCategoryName, editCategorySymbol);
+        if(validated) {
+            CategoryManager.editCategory(categoryIndex, validated.name, validated.symbol);
+            updateCategoryName(validated.name);
+            updateCategorySymbol(validated.symbol);
+            editModal.close();
+        } 
+    });
+    editModal.showModal();
+}
+
+editCategoryButton.addEventListener("click", showEditCategoryModal);
+
 
 export { displayCategoryTodos }

@@ -5,21 +5,21 @@ import { toggleCategoryButtonVisibility } from './modules/sidebarManager';
 import { displayCategoryTodos } from "./modules/displayManager";
 
 const general = CategoryManager.createCategory("Thisisalongcategory", "📄");
-CategoryManager.createCategory("Gaming", "🎮");
+const gaming = CategoryManager.createCategory("Gaming", "🎮");
 
 const generateTodos = (quantity) => {
   for(let i = 0; i < quantity; i++) {
-    const todo = new Todo("Title", `this is the aisdaokjsdhnkasdhjkaksjdhajksd number ${i}`, '2023', PRIORITIES.LOW);
+    const todo = new Todo("Title", `this is the aisdaokjsdhnkasdhjkaksjdhajksd number ${i}`, '2023', PRIORITIES.LOW, true);
     general.addTodo(todo);
   }
 }
 
-generateTodos(100);
+generateTodos(1);
 
 const toggleButtonVisibilityBtn = document.getElementById("edit-categories-btn");
 toggleButtonVisibilityBtn.addEventListener("click", toggleCategoryButtonVisibility);
 
-displayCategoryTodos(general)
+displayCategoryTodos(general);
 
 
 // Handle backdrop clicks

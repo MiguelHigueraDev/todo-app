@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!--<script src="https://kit.fontawesome.com/56299f684d.js" crossorigin="anonymous" defer></script>-->
+    <script src="https://kit.fontawesome.com/56299f684d.js" crossorigin="anonymous" defer></script>
 </head>
 <body>
     <nav class="sidebar">
@@ -26,12 +26,12 @@
                         <h3>Add new category</h3>
                         <div class="form-element">
                             <label for="category-name" class="input-label">Category name</label>
-                            <input type="text" id="category-name" maxlength="20" class="form-input">
+                            <input type="text" id="category-name" maxlength="20" class="form-input" required>
                             <small id="category-name-errors" class="input-error-label"></small>
                         </div>
                         <div class="form-element">
                             <label for="category-symbol" class="input-label">Category icon</label>
-                            <input type="text" id="category-symbol" maxlength="2" class="form-input">
+                            <input type="text" id="category-symbol" maxlength="2" class="form-input" required>
                             <small id="category-symbol-hint">Enter a letter or an emoji</small>
                             <small id="category-symbol-errors" class="input-error-label"></small>
                         </div>
@@ -54,12 +54,12 @@
                     <h3>Edit category</h3>
                     <div class="form-element">
                         <label for="edit-category-name" class="input-label">Category name</label>
-                        <input type="text" id="edit-category-name" maxlength="20" class="form-input">
+                        <input type="text" id="edit-category-name" maxlength="20" class="form-input" required>
                         <small id="edit-category-name-errors" class="input-error-label"></small>
                     </div>
                     <div class="form-element">
                         <label for="edit-category-symbol" class="input-label">Category icon</label>
-                        <input type="text" id="edit-category-symbol" maxlength="2" class="form-input">
+                        <input type="text" id="edit-category-symbol" maxlength="2" class="form-input" required>
                         <small id="edit-category-symbol-hint">Enter a letter or an emoji</small>
                         <small id="edit-category-symbol-errors" class="input-error-label"></small>
                     </div>
@@ -77,27 +77,46 @@
         <div class="main-container">
             <div class="todos-header">
                 <h1 class="category-info"><span class="category-symbol">Select a category to view todos</span><span class="category-name"></span></h1>
-                <button class="todos-header-add-new btn"><i class="fa solid fa-plus"></i></button>
+                <div class="todos-header-btn-container">
+                    <button class="todos-header-edit-category btn"><i class="fa solid fa-pen-to-square"></i></button>
+                    <button class="todos-header-add-new btn"><i class="fa solid fa-plus"></i></button>
+                </div>
             </div>
             <div class="todos-container">
                 
             </div>
-            <dialog id="create-todo-modal" class="modal" open>
+            <dialog id="create-todo-modal" class="modal">
                 <form id="create-todo">
                     <h3>Add new todo</h3>
                     <div class="form-element">
-                        <label for="edit-category-name" class="input-label">Category name</label>
-                        <input type="text" id="edit-category-name" maxlength="20" class="form-input">
-                        <small id="edit-category-name-errors" class="input-error-label"></small>
+                        <label for="todo-title" class="input-label">Title</label>
+                        <input type="text" id="todo-title" maxlength="50" class="form-input" required>
+                        <small class="input-error-label"></small>
                     </div>
                     <div class="form-element">
-                        <label for="edit-category-symbol" class="input-label">Category icon</label>
-                        <input type="text" id="edit-category-symbol" maxlength="2" class="form-input">
-                        <small id="edit-category-symbol-hint">Enter a letter or an emoji</small>
-                        <small id="edit-category-symbol-errors" class="input-error-label"></small>
+                        <label for="todo-description" class="input-label">Description</label>
+                        <input type="text" id="todo-description" maxlength="100" class="form-input" required>
+                        <small id="category-symbol-hint">Optional</small>
+                        <small class="input-error-label"></small>
                     </div>
                     <div class="form-element">
-                        <button type="button" id="edit-category-btn">Edit</button>
+                        <label for="todo-due-date" class="input-label">Due date</label>
+                        <input type="date" id="todo-due-date" class="form-input" required>
+                        <small class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <label for="todo-priority" class="input-label">Priority</label>
+                        <select class="form-select" id="todo-priority" class="form-select" required>
+                            <option value="todo-priority-low">Low</option>
+                            <option value="todo-priority-medium">Medium</option>
+                            <option value="todo-priority-high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-element">
+                        <label for="todo-checked"><input type="checkbox" class="form-checkbox" id="todo-checked">Check</label>
+                    </div>
+                    <div class="form-element">
+                        <button type="button" id="add-todo-btn">Add</button>
                     </div>
                 </form>
             </dialog>
