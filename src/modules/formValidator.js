@@ -95,4 +95,10 @@ const validateTodoInput = (title, description, dueDate, priority, checked) => {
     return validated;
 }
 
-export { validateCategoryInput, validateTodoInput, resetValidationErrors }
+const formValidator = {
+    validateCategoryInput,
+    validateTodoInput,
+    resetValidationErrors
+};
+
+export default formValidator;

@@ -1,4 +1,4 @@
-import { updateCategoryList as updateDOMCategoryList } from "./sidebarManager";
+import sidebarManager from "./sidebarManager";
 
 class Category {
     constructor(name, symbol) {
@@ -39,7 +39,7 @@ class CategoryManager {
     }
 
     static updateCategories() {
-        updateDOMCategoryList(this.getCategories());
+        sidebarManager.updateCategoryList(this.getCategories());
     }
 
     static getCategories() {

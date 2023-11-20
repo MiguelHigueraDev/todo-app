@@ -18,7 +18,7 @@
             <div class="categories-header">
                 <h3>Categories</h3>
                 <div class="categories-btn-container">
-                    <button id="edit-categories-btn" class="btn"><i class="fa solid fa-pen-to-square"></i></button>
+                    <button id="edit-categories-btn" class="btn"><i class="fa solid fa-trash"></i></button>
                     <button id="add-category-modal-btn" class="btn"><i class="fa solid fa-plus"></i></button>
                 </div>
                 <dialog id="add-category-modal" class="modal">
@@ -70,6 +70,7 @@
             <dialog id="create-todo-modal" class="modal">
                 <form id="create-todo">
                     <h3>Add new todo</h3>
+                    <button type="button">X</button>
                     <div class="form-element">
                         <label for="todo-title" class="input-label">Title</label>
                         <input type="text" id="todo-title" maxlength="50" class="form-input" required>
@@ -77,7 +78,7 @@
                     </div>
                     <div class="form-element">
                         <label for="todo-description" class="input-label">Description</label>
-                        <textarea id="todo-description" rows="4" maxlength="100" class="form-input" required></textarea>
+                        <textarea id="todo-description" rows="4" maxlength="100" class="form-input"></textarea>
                         <small id="category-symbol-hint">Optional</small>
                         <small class="input-error-label"></small>
                     </div>
@@ -112,7 +113,7 @@
                     </div>
                     <div class="form-element">
                         <label for="edit-todo-description" class="input-label">Description</label>
-                        <textarea id="edit-todo-description" maxlength="100" rows="4" class="form-input" required></textarea>
+                        <textarea id="edit-todo-description" maxlength="100" rows="4" class="form-input"></textarea>
                         <small id="category-symbol-hint">Optional</small>
                         <small class="input-error-label"></small>
                     </div>

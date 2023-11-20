@@ -1,5 +1,5 @@
-import { validateTodoInput, resetValidationErrors, validateCategoryInput } from "./formValidator";
-import { hideMobileMenu } from "./responsiveManager";
+import formValidator from "./formValidator";
+import responsiveManager from "./responsiveManager";
 import { CategoryManager, Todo } from "./todos";
 
 const todoContainer = document.querySelector(".todos-container");
@@ -42,7 +42,7 @@ const displayCategoryTodos = (category) => {
     updateCategorySymbol(symbol);
     removeTodoDivs();
     // Hide sidebar
-    hideMobileMenu();
+    responsiveManager.hideMobileMenu();
     createTodoDivs(todos);
     
     if (todos.length === 0) displayNoTodosMessage();
@@ -152,7 +152,7 @@ addTodoButton.addEventListener("click", () => {
 
 const createTodo = (e) => {
     e.preventDefault();
-    const validated = validateTodoInput(titleInput, descriptionInput, dueDateInput, priorityInput, checkedInput);
+    const validated = formValidator.validateTodoInput(titleInput, descriptionInput, dueDateInput, priorityInput, checkedInput);
     if (!validated) return;
     const category = getCategory();
     const { title, description, dueDate, priority, checked } = validated;
@@ -177,7 +177,7 @@ const showEditCategoryModal = () => {
     const editBtn = document.getElementById("edit-category-btn");
     editBtn.addEventListener("click", () => {
         const categoryIndex = addTodoButton.getAttribute('data-id');
-        const validated = validateCategoryInput(editCategoryName, editCategorySymbol);
+        const validated = formValidator.validateCategoryInput(editCategoryName, editCategorySymbol);
         if(validated) {
             CategoryManager.editCategory(categoryIndex, validated.name, validated.symbol);
             updateCategoryName(validated.name);
@@ -185,7 +185,7 @@ const showEditCategoryModal = () => {
             editCategoryModal.close();
         } 
     });
-    resetValidationErrors();
+    formValidator.resetValidationErrors();
     editCategoryModal.showModal();
 }
 
@@ -218,7 +218,7 @@ const showEditTodoModal = (e) => {
 
     submitEditTodoButton.setAttribute("data-id", index);
 
-    resetValidationErrors();
+    formValidator.resetValidationErrors();
     editTodoModal.showModal();
 }
 
@@ -227,7 +227,7 @@ const editTodo = (e) => {
     const index = e.target.getAttribute("data-id");
     const { category, todo } = getTodoAndCategory(index);
 
-    const validated = validateTodoInput(editTitleInput, editDescriptionInput, editDueDateInput, editPriorityInput, editCheckedInput);
+    const validated = formValidator.validateTodoInput(editTitleInput, editDescriptionInput, editDueDateInput, editPriorityInput, editCheckedInput);
 
     if (validated) {
         const { title, description, dueDate, priority, checked } = validated;
@@ -247,5 +247,8 @@ const deleteTodo = (e) => {
     displayCategoryTodos(category);
 }
 
+const displayManager = {
+    displayCategoryTodos
+}
 
-export { displayCategoryTodos }
+export default displayManager

@@ -1,6 +1,6 @@
 import { CategoryManager } from "./todos";
-import { validateCategoryInput } from "./formValidator";
-import { displayCategoryTodos } from "./displayManager";
+import formValidator from "./formValidator";
+import displayManager from "./displayManager";
 
 const categoryListContainer = document.querySelector("#category-list");
 const addCategoryModal = document.getElementById("add-category-modal");
@@ -15,7 +15,7 @@ const createCategory = (e) => {
     e.preventDefault();
     const name = document.getElementById("category-name");
     const symbol = document.getElementById("category-symbol");
-    const validated = validateCategoryInput(name, symbol);
+    const validated = formValidator.validateCategoryInput(name, symbol);
     if (!validated) return;
     const created = CategoryManager.createCategory(validated.name, validated.symbol);
     if (!created) return alert("Category already exists");
@@ -47,7 +47,7 @@ const createCategoryItem = (category, index) => {
     categoryItem.classList.add('category-list-item');
     categoryItem.textContent = category.name;
     categoryItem.setAttribute('data-id', index);
-    categoryItem.addEventListener("click", () => displayCategoryTodos(category));
+    categoryItem.addEventListener("click", () => displayManager.displayCategoryTodos(category));
     const icon = document.createElement('i');
     icon.textContent = category.symbol;
     categoryItem.appendChild(icon);
@@ -82,7 +82,7 @@ deleteCategoryBtn.addEventListener("click", (e) => {
     const name = e.target.getAttribute("data-name");
     CategoryManager.removeCategory(name);
     // Reload the first category
-    displayCategoryTodos(CategoryManager.getCategoryByIndex(0));
+    displayManager.displayCategoryTodos(CategoryManager.getCategoryByIndex(0));
     deleteModal.close();
 });
 
@@ -100,5 +100,9 @@ modalBtn.addEventListener('click', () => {
 });
 addCategoryBtn.addEventListener("click", createCategory);
 
+const sidebarManager = {
+    updateCategoryList,
+    toggleCategoryButtonVisibility,
+};
 
-export { updateCategoryList, toggleCategoryButtonVisibility }
+export default sidebarManager;
