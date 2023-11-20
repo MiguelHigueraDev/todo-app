@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/56299f684d.js" crossorigin="anonymous" defer></script>
+    <!--<script src="https://kit.fontawesome.com/56299f684d.js" crossorigin="anonymous" defer></script>-->
 </head>
 <body>
     <nav class="sidebar">
@@ -76,7 +76,7 @@
                     </div>
                     <div class="form-element">
                         <label for="todo-description" class="input-label">Description</label>
-                        <input type="text" id="todo-description" maxlength="100" class="form-input" required>
+                        <textarea id="todo-description" rows="4" maxlength="100" class="form-input" required></textarea>
                         <small id="category-symbol-hint">Optional</small>
                         <small class="input-error-label"></small>
                     </div>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="form-element">
                         <label for="edit-todo-description" class="input-label">Description</label>
-                        <input type="text" id="edit-todo-description" maxlength="100" class="form-input" required>
+                        <textarea id="edit-todo-description" maxlength="100" rows="4" class="form-input" required></textarea>
                         <small id="category-symbol-hint">Optional</small>
                         <small class="input-error-label"></small>
                     </div>

@@ -2,6 +2,8 @@ import { validateTodoInput, resetValidationErrors, validateCategoryInput } from 
 import { hideMobileMenu } from "./responsiveManager";
 import { CategoryManager, Todo } from "./todos";
 
+const todoContainer = document.querySelector(".todos-container");
+
 const addTodoButton = document.querySelector(".todos-header-add-new");
 const editCategoryButton = document.querySelector(".todos-header-edit-category");
 const submitAddTodoButton = document.querySelector("#add-todo-btn");
@@ -41,11 +43,19 @@ const displayCategoryTodos = (category) => {
     removeTodoDivs();
     // Hide sidebar
     hideMobileMenu();
-    createTodoDivs(todos);  
+    createTodoDivs(todos);
+    
+    if (todos.length === 0) displayNoTodosMessage();
+}
+
+const displayNoTodosMessage = () => {
+    const message = document.createElement('h2');
+    message.textContent = "This category has no todos. Press the + button to add the first one.";
+    console.log(message);
+    todoContainer.appendChild(message);
 }
 
 const createTodoDivs = (todos) => {
-    const todoContainer = document.querySelector(".todos-container");
     for(const todo of todos) {
         const todoArticle = createTodoArticle(todos.indexOf(todo), todo.title, todo.description, todo.dueDate,  todo.priority, todo.checked);
         todoContainer.appendChild(todoArticle);
