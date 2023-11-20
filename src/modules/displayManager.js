@@ -58,7 +58,7 @@ const createTodoArticle = (index, title, description, dueDate, priority, checked
     const todoArticle = document.createElement("article");
     todoArticle.classList.add("todo");
     todoArticle.classList.add(priority);
-    if(checked) todoArticle.classList.add("todo-checked");
+    if (checked) todoArticle.classList.add("todo-checked");
     todoArticle.setAttribute('data-id', index);
     const { heading, para } = createTodoText(title, description);
     const buttons = createTodoButtons();

@@ -4,22 +4,22 @@ import { Todo, Category, CategoryManager, Note, CheckListItem } from './modules/
 import { toggleCategoryButtonVisibility } from './modules/sidebarManager';
 import { displayCategoryTodos } from "./modules/displayManager";
 
-const general = CategoryManager.createCategory("General", "📄");
-const gaming = CategoryManager.createCategory("Gaming", "🎮");
+//const general = CategoryManager.createCategory("General", "📄");
+//const gaming = CategoryManager.createCategory("Gaming", "🎮");
 
-const generateTodos = (quantity) => {
+/*const generateTodos = (quantity) => {
   for(let i = 0; i < quantity; i++) {
     const todo = new Todo(`Title ${i}`, `This is the element number ${i}`, '2023-02-01', PRIORITIES.LOW, false);
     general.addTodo(todo);
   }
 }
 
-generateTodos(5);
+generateTodos(5);*/
 
 const toggleButtonVisibilityBtn = document.getElementById("edit-categories-btn");
 toggleButtonVisibilityBtn.addEventListener("click", toggleCategoryButtonVisibility);
 
-displayCategoryTodos(general);
+console.log(CategoryManager.loadCategoriesFromStorage());
 
 
 // Handle backdrop clicks

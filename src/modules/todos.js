@@ -9,10 +9,12 @@ class Category {
 
     addTodo(todo) {
         this.list.push(todo);
+        CategoryManager.saveToStorage();
     }
 
     removeTodo(index) {
         this.list.splice(index, 1);
+        CategoryManager.saveToStorage();
     }
 
     getTodos() {
@@ -32,6 +34,7 @@ class CategoryManager {
         const category = new Category(name, symbol);
         this._categories.push(category);
         this.updateCategories();
+        this.saveToStorage();
         return category;
     }
 
@@ -60,6 +63,7 @@ class CategoryManager {
         if(!category) return false;
         this._categories.splice(this.getCategories().indexOf(category), 1);
         this.updateCategories();
+        this.saveToStorage();
     }
 
     static editCategory(index, name, symbol) {
@@ -68,7 +72,24 @@ class CategoryManager {
         category.name = name;
         category.symbol = symbol;
         this.updateCategories();
+        this.saveToStorage();
         return true;
+    }
+
+    static saveToStorage() {
+        const save = JSON.stringify(this.getCategories());
+        localStorage.setItem("todos", save);
+    }
+
+    static loadCategoriesFromStorage() {
+        const saved = JSON.parse(localStorage.getItem("todos"));
+        for (const category of saved) {
+            const cat = this.createCategory(category.name, category.symbol);
+            for (const to of category.list) {
+                const todo = new Todo(to.title, to.description, to.dueDate, to.priority, to.checked);
+                cat.addTodo(todo);
+            }
+        }
     }
 }
 
@@ -87,10 +108,12 @@ class Todo {
         this.dueDate = dueDate;
         this.priority = priority;
         this.checked = checked;
+        CategoryManager.saveToStorage();
     }
 
     toggleChecked() {
         this.checked = !this.checked;
+        CategoryManager.saveToStorage();
     }
 
 }
