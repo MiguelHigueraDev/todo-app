@@ -169,7 +169,7 @@ footer {
 	display: flex;
 	flex-grow: 1;
 	align-items: flex-end;
-	justify-items: flex-end;
+	justify-content: space-between;
 }
 
 footer p {
@@ -184,6 +184,10 @@ footer a {
 
 footer a:hover {
 	color: var(--secondary-color-active)
+}
+
+.source {
+	color: white;
 }
 
 .btn {
