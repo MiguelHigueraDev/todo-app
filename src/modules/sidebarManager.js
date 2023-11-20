@@ -11,7 +11,8 @@ const deleteModal = document.getElementById("delete-category-modal");
 const deleteCategoryBtn = deleteModal.querySelector('#delete-category-btn');
 let buttonsHidden = true;
 
-const createCategory = () => {
+const createCategory = (e) => {
+    e.preventDefault();
     const name = document.getElementById("category-name");
     const symbol = document.getElementById("category-symbol");
     const validated = validateCategoryInput(name, symbol);

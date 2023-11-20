@@ -150,7 +150,8 @@ addTodoButton.addEventListener("click", () => {
     addTodoModal.showModal();
 });
 
-const createTodo = () => {
+const createTodo = (e) => {
+    e.preventDefault();
     const validated = validateTodoInput(titleInput, descriptionInput, dueDateInput, priorityInput, checkedInput);
     if (!validated) return;
     const category = getCategory();
@@ -222,6 +223,7 @@ const showEditTodoModal = (e) => {
 }
 
 const editTodo = (e) => {
+    e.preventDefault();
     const index = e.target.getAttribute("data-id");
     const { category, todo } = getTodoAndCategory(index);
 
