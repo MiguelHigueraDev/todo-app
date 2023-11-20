@@ -81,7 +81,7 @@ const validateTodoInput = (title, description, dueDate, priority, checked) => {
     if (dueDate.value.length < 1) {
         const currentDate = new Date();
         let tomorrow = addDays(currentDate, 1);
-        tomorrow = format(tomorrow, "dd-MM-yyyy");
+        tomorrow = format(tomorrow, "yyyy-MM-dd");
         validated.dueDate = tomorrow;
     }
 

@@ -18,6 +18,10 @@ class Category {
     getTodos() {
         return this.list;
     }
+
+    getTodo(index) {
+        return this.list[index];
+    }
 }
 
 class CategoryManager {
@@ -83,6 +87,10 @@ class Todo {
         this.dueDate = dueDate;
         this.priority = priority;
         this.checked = checked;
+    }
+
+    toggleChecked() {
+        this.checked = !this.checked;
     }
 
 }

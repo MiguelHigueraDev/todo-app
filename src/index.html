@@ -49,25 +49,6 @@
                     <button type="button" id="delete-category-btn">Remove</button>
                 </div>
             </dialog>
-            <dialog id="edit-category-modal" class="modal">
-                <form id="edit-category">
-                    <h3>Edit category</h3>
-                    <div class="form-element">
-                        <label for="edit-category-name" class="input-label">Category name</label>
-                        <input type="text" id="edit-category-name" maxlength="20" class="form-input" required>
-                        <small id="edit-category-name-errors" class="input-error-label"></small>
-                    </div>
-                    <div class="form-element">
-                        <label for="edit-category-symbol" class="input-label">Category icon</label>
-                        <input type="text" id="edit-category-symbol" maxlength="2" class="form-input" required>
-                        <small id="edit-category-symbol-hint">Enter a letter or an emoji</small>
-                        <small id="edit-category-symbol-errors" class="input-error-label"></small>
-                    </div>
-                    <div class="form-element">
-                        <button type="button" id="edit-category-btn">Edit</button>
-                    </div>
-                </form>
-            </dialog>
         </div>
         <footer>
             <p>Made by <a href="http://miguelhiguera.dev" target="_blank">MiguelHigueraDev</a></p>
@@ -117,6 +98,60 @@
                     </div>
                     <div class="form-element">
                         <button type="button" id="add-todo-btn">Add</button>
+                    </div>
+                </form>
+            </dialog>
+            <dialog id="edit-todo-modal" class="modal">
+                <form id="edit-todo">
+                    <h3>Edit todo</h3>
+                    <div class="form-element">
+                        <label for="edit-todo-title" class="input-label">Title</label>
+                        <input type="text" id="edit-todo-title" maxlength="50" class="form-input" required>
+                        <small class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <label for="edit-todo-description" class="input-label">Description</label>
+                        <input type="text" id="edit-todo-description" maxlength="100" class="form-input" required>
+                        <small id="category-symbol-hint">Optional</small>
+                        <small class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <label for="edit-todo-due-date" class="input-label">Due date</label>
+                        <input type="date" id="edit-todo-due-date" class="form-input" required>
+                        <small class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <label for="edit-todo-priority" class="input-label">Priority</label>
+                        <select class="form-select" id="edit-todo-priority" class="form-select" required>
+                            <option value="todo-priority-low">Low</option>
+                            <option value="todo-priority-medium">Medium</option>
+                            <option value="todo-priority-high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-element">
+                        <label for="edit-todo-checked"><input type="checkbox" class="form-checkbox" id="edit-todo-checked">Check</label>
+                    </div>
+                    <div class="form-element">
+                        <button type="button" id="edit-todo-btn">Add</button>
+                    </div>
+                </form>
+            </dialog>
+            <dialog id="edit-category-modal" class="modal">
+                <form id="edit-category">
+                    <h3>Edit category</h3>
+                    <div class="form-element">
+                        <label for="edit-category-name" class="input-label">Category name</label>
+                        <input type="text" id="edit-category-name" maxlength="20" class="form-input" required>
+                        <small id="edit-category-name-errors" class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <label for="edit-category-symbol" class="input-label">Category icon</label>
+                        <input type="text" id="edit-category-symbol" maxlength="2" class="form-input" required>
+                        <small id="edit-category-symbol-hint">Enter a letter or an emoji</small>
+                        <small id="edit-category-symbol-errors" class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <button type="button" id="edit-category-btn">Edit</button>
                     </div>
                 </form>
             </dialog>
