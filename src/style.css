@@ -434,7 +434,7 @@ button > * {
 /* Responsive */
 @media only screen and (max-width: 850px) {
 	body {
-		display: flex;
+		display: block;
 		height: 100vh;
 		font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	}
