@@ -59,6 +59,8 @@ class CategoryManager {
     }
 
     static removeCategory(name) {
+        // Don't let the user remove the last category.
+        if(this.getCategories().length === 1) return alert("Cannot delete the last category.");
         const category = this.getCategory(name);
         if(!category) return false;
         this._categories.splice(this.getCategories().indexOf(category), 1);
@@ -83,6 +85,7 @@ class CategoryManager {
 
     static loadCategoriesFromStorage() {
         const saved = JSON.parse(localStorage.getItem("todos"));
+        if(saved == null) return this.generateBaseCategory();
         for (const category of saved) {
             const cat = this.createCategory(category.name, category.symbol);
             for (const to of category.list) {
@@ -90,6 +93,11 @@ class CategoryManager {
                 cat.addTodo(todo);
             }
         }
+    }
+
+    static generateBaseCategory() {
+        this.createCategory("General", "📄");
+        this.saveToStorage();
     }
 }
 

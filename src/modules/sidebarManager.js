@@ -6,6 +6,9 @@ const categoryListContainer = document.querySelector("#category-list");
 const addCategoryModal = document.getElementById("add-category-modal");
 const addCategoryBtn = document.getElementById("add-new-category-btn");
 const modalBtn = document.getElementById("add-category-modal-btn");
+
+const deleteModal = document.getElementById("delete-category-modal");
+const deleteCategoryBtn = deleteModal.querySelector('#delete-category-btn');
 let buttonsHidden = true;
 
 const createCategory = () => {
@@ -69,15 +72,16 @@ const createCategoryDeleteButton = (name) => {
 }
 
 const showDeleteCategoryModal = (name) => {
-    const deleteModal = document.getElementById("delete-category-modal");
     deleteModal.querySelector('strong').textContent = `${name}`;
-    const deleteBtn = deleteModal.querySelector('#delete-category-btn');
-    deleteBtn.addEventListener("click", () => {
-        CategoryManager.removeCategory(name);
-        deleteModal.close();
-    });
+    deleteCategoryBtn.setAttribute("data-name", name);
     deleteModal.showModal();
 }
+
+deleteCategoryBtn.addEventListener("click", (e) => {
+    const name = e.target.getAttribute("data-name");
+    CategoryManager.removeCategory(name);
+    deleteModal.close();
+});
 
 const createIcon = (iconTypes) => {
     const icon = document.createElement('i');
@@ -92,5 +96,6 @@ modalBtn.addEventListener('click', () => {
     addCategoryModal.showModal();
 });
 addCategoryBtn.addEventListener("click", createCategory);
+
 
 export { updateCategoryList, toggleCategoryButtonVisibility }
