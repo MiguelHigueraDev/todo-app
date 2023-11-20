@@ -4,6 +4,7 @@ import { CategoryManager, Todo } from "./todos";
 const addTodoButton = document.querySelector(".todos-header-add-new");
 const editCategoryButton = document.querySelector(".todos-header-edit-category");
 const submitAddTodoButton = document.querySelector("#add-todo-btn");
+const submitEditTodoButton = document.querySelector("#edit-todo-btn");
 
 const addTodoModal = document.querySelector("#create-todo-modal");
 const editTodoModal = document.querySelector("#edit-todo-modal");
@@ -13,6 +14,12 @@ const descriptionInput = document.getElementById("todo-description");
 const dueDateInput = document.getElementById("todo-due-date");
 const priorityInput = document.getElementById("todo-priority");
 const checkedInput = document.getElementById("todo-checked");
+
+const editTitleInput = document.getElementById("edit-todo-title");
+const editDescriptionInput = document.getElementById("edit-todo-description");
+const editDueDateInput = document.getElementById("edit-todo-due-date");
+const editPriorityInput = document.getElementById("edit-todo-priority");
+const editCheckedInput = document.getElementById("edit-todo-checked");
 
 // Display todo grid
 const getCategoryTodos = (category) => {
@@ -82,13 +89,13 @@ const createTodoButtons = () => {
     const editButton = document.createElement("button");
     editButton.classList.add("btn");
     const editIcon = createButtonIcon("fa solid fa-pen-to-square");
-    editButton.addEventListener("click", editTodo);
+    editButton.addEventListener("click", showEditTodoModal);
     editButton.appendChild(editIcon);
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("btn", "btn-delete-todo");
-    deleteButton.addEventListener("click", deleteTodo);
     const deleteIcon = createButtonIcon("fa solid fa-trash");
+    deleteButton.addEventListener("click", deleteTodo);
     deleteButton.appendChild(deleteIcon);
 
     buttonContainer.appendChild(toggleCheckedButton);
@@ -147,9 +154,8 @@ submitAddTodoButton.addEventListener("click", createTodo);
 // Edit category
 
 const showEditCategoryModal = () => {
-    resetValidationErrors();
     const category = getCategory();
-    const editModal = document.getElementById("edit-category-modal");
+    const editCategoryModal = document.getElementById("edit-category-modal");
     const editCategoryName = document.getElementById("edit-category-name");
     const editCategorySymbol = document.getElementById("edit-category-symbol");
     editCategoryName.value = category.name;
@@ -162,10 +168,11 @@ const showEditCategoryModal = () => {
             CategoryManager.editCategory(categoryIndex, validated.name, validated.symbol);
             updateCategoryName(validated.name);
             updateCategorySymbol(validated.symbol);
-            editModal.close();
+            editCategoryModal.close();
         } 
     });
-    editModal.showModal();
+    resetValidationErrors();
+    editCategoryModal.showModal();
 }
 
 editCategoryButton.addEventListener("click", showEditCategoryModal);
@@ -185,38 +192,38 @@ const toggleTodoChecked = (e) => {
     displayCategoryTodos(category);
 }
 
-const editTodo = (e) => {
-    resetValidationErrors();
+const showEditTodoModal = (e) => {
     const index = e.target.parentElement.parentElement.getAttribute("data-id");
-    const { category, todo } = getTodoAndCategory(index);
-    editTodoModal.showModal();
-    console.log(todo);
-    
-    const title = document.getElementById("edit-todo-title");
-    const description = document.getElementById("edit-todo-description");
-    const dueDate = document.getElementById("edit-todo-due-date");
-    const priority = document.getElementById("edit-todo-priority");
-    const checked = document.getElementById("edit-todo-checked");
+    const { todo } = getTodoAndCategory(index);
 
-    title.value = todo.title;
-    description.value = todo.description;
-    dueDate.value = todo.dueDate;
-    priority.value = todo.priority;
-    checked.checked = todo.checked;
+    editTitleInput.value = todo.title;
+    editDescriptionInput.value = todo.description;
+    editDueDateInput.value = todo.dueDate;
+    editPriorityInput.value = todo.priority;
+    editCheckedInput.checked = todo.checked;
 
-    const editBtn = document.getElementById("edit-todo-btn");
-    editBtn.addEventListener("click", () => {
-        const validated = validateTodoInput(title, description, dueDate, priority, checked);
-        if (validated) {
-            const { title, description, dueDate, priority, checked } = validated;
-            todo.editTodo(title, description, dueDate, priority, checked);
-            displayCategoryTodos(category);
-            editTodoModal.close();
-        }
-    });
+    submitEditTodoButton.setAttribute("data-id", index);
 
+    resetValidationErrors();
     editTodoModal.showModal();
 }
+
+const editTodo = (e) => {
+    const index = e.target.getAttribute("data-id");
+    const { category, todo } = getTodoAndCategory(index);
+
+    const validated = validateTodoInput(editTitleInput, editDescriptionInput, editDueDateInput, editPriorityInput, editCheckedInput);
+
+    if (validated) {
+        const { title, description, dueDate, priority, checked } = validated;
+        todo.editTodo(title, description, dueDate, priority, checked);
+        displayCategoryTodos(category);
+        editTodoModal.close();
+    }
+
+}
+
+submitEditTodoButton.addEventListener("click", editTodo);
 
 const deleteTodo = (e) => {
     const index = e.target.parentElement.parentElement.getAttribute("data-id");
