@@ -1,4 +1,5 @@
 import { validateTodoInput, resetValidationErrors, validateCategoryInput } from "./formValidator";
+import { hideMobileMenu } from "./responsiveManager";
 import { CategoryManager, Todo } from "./todos";
 
 const addTodoButton = document.querySelector(".todos-header-add-new");
@@ -38,6 +39,8 @@ const displayCategoryTodos = (category) => {
     updateCategoryName(name);
     updateCategorySymbol(symbol);
     removeTodoDivs();
+    // Hide sidebar
+    hideMobileMenu();
     createTodoDivs(todos);  
 }
 

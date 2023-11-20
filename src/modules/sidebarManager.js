@@ -80,6 +80,8 @@ const showDeleteCategoryModal = (name) => {
 deleteCategoryBtn.addEventListener("click", (e) => {
     const name = e.target.getAttribute("data-name");
     CategoryManager.removeCategory(name);
+    // Reload the first category
+    displayCategoryTodos(CategoryManager.getCategoryByIndex(0));
     deleteModal.close();
 });
 
