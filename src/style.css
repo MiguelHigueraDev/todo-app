@@ -348,6 +348,16 @@ footer a:hover {
 	margin-bottom: 40px;
 }
 
+.todos-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.todos-footer p {
+	font-size: 0.9rem;
+}
+
 .todos-header-add-new {
 	appearance: none;
 	padding: 14px;

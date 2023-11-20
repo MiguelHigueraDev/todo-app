@@ -1,3 +1,4 @@
+import { format, parseISO } from "date-fns";
 import formValidator from "./formValidator";
 import responsiveManager from "./responsiveManager";
 import { CategoryManager, Todo } from "./todos";
@@ -51,7 +52,6 @@ const displayCategoryTodos = (category) => {
 const displayNoTodosMessage = () => {
     const message = document.createElement('h2');
     message.textContent = "This category has no todos. Press the + button to add the first one.";
-    console.log(message);
     todoContainer.appendChild(message);
 }
 
@@ -74,10 +74,10 @@ const createTodoArticle = (index, title, description, dueDate, priority, checked
     if (checked) todoArticle.classList.add("todo-checked");
     todoArticle.setAttribute('data-id', index);
     const { heading, para } = createTodoText(title, description);
-    const buttons = createTodoButtons();
+    const footer = createTodoFooter(dueDate);
     todoArticle.appendChild(heading);
     todoArticle.appendChild(para);
-    todoArticle.appendChild(buttons);
+    todoArticle.appendChild(footer);
     return todoArticle;
 }
 
@@ -89,7 +89,15 @@ const createTodoText = (title, description) => {
     return { heading, para };
 }
 
-const createTodoButtons = () => {
+const createTodoFooter = (date) => {
+    // Container + due date
+    const todoFooter = document.createElement("div");
+    todoFooter.classList.add("todos-footer");
+
+    const dueDate = document.createElement("p");
+    dueDate.textContent = format(parseISO(date), "MM/dd/yyyy");
+
+    // Buttons
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add('todo-button-container');
 
@@ -114,7 +122,11 @@ const createTodoButtons = () => {
     buttonContainer.appendChild(toggleCheckedButton);
     buttonContainer.appendChild(editButton);
     buttonContainer.appendChild(deleteButton);
-    return buttonContainer;
+
+    // Append to footer container
+    todoFooter.appendChild(dueDate);
+    todoFooter.appendChild(buttonContainer);
+    return todoFooter;
 }
 
 const createButtonIcon = (classes) => {
@@ -200,14 +212,14 @@ const getTodoAndCategory = (index) => {
 } 
 
 const toggleTodoChecked = (e) => {
-    const index = e.target.parentElement.parentElement.getAttribute("data-id");
+    const index = e.target.parentElement.parentElement.parentElement.getAttribute("data-id");
     const { category, todo } = getTodoAndCategory(index);
     todo.toggleChecked();
     displayCategoryTodos(category);
 }
 
 const showEditTodoModal = (e) => {
-    const index = e.target.parentElement.parentElement.getAttribute("data-id");
+    const index = e.target.parentElement.parentElement.parentElement.getAttribute("data-id");
     const { todo } = getTodoAndCategory(index);
 
     editTitleInput.value = todo.title;
