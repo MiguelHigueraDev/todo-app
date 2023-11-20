@@ -1,6 +1,4 @@
 import { updateCategoryList as updateDOMCategoryList } from "./sidebarManager";
-import { PRIORITIES } from "./constants";
-
 
 class Category {
     constructor(name, symbol) {
@@ -49,6 +47,10 @@ class CategoryManager {
         return this.getCategories()[index];
     }
 
+    static getCategoryIndex(category) {
+        return this.getCategories().indexOf(this.getCategory(category.name));
+    }
+
     static removeCategory(name) {
         const category = this.getCategory(name);
         if(!category) return false;
@@ -67,12 +69,22 @@ class CategoryManager {
 }
 
 class Todo {
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority, checked) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.checked = checked;
     }
+
+    editTodo(title, description, dueDate, priority, checked) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.checked = checked;
+    }
+
 }
 
 class Note {

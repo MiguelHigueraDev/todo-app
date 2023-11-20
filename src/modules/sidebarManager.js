@@ -63,17 +63,19 @@ const createCategoryButtonList = (category, index) => {
 
 const createCategoryEditButton = (category, index) => {
     const button = document.createElement('button');
-    button.classList.add('categories-btn', 'edit-category');
+    button.classList.add('btn', 'edit-category');
     const icon = createIcon("fa solid fa-pen-to-square");
     button.addEventListener("click", (e) => showEditCategoryModal(e, category));
     button.setAttribute('data-id', index);
+    // Add ID to icon so it works when clicking icon as well
+    icon.setAttribute('data-id', index);
     button.appendChild(icon);
     return button;
 }
 
 const createCategoryDeleteButton = (name) => {
     const button = document.createElement('button');
-    button.classList.add('categories-btn', 'delete-category');
+    button.classList.add('btn', 'delete-category');
     const icon = createIcon("fa solid fa-trash");
     button.addEventListener("click", () => showDeleteCategoryModal(name));
     button.appendChild(icon);

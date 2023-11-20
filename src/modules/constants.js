@@ -1,3 +1,3 @@
-const PRIORITIES = { LOW: 1, MEDIUM: 2, HIGH: 3 };
+const PRIORITIES = { LOW: "todo-priority-low", MEDIUM: "todo-priority-medium", HIGH: "todo-priority-high" };
 
 export { PRIORITIES }

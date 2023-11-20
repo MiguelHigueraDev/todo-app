@@ -2,18 +2,24 @@ import "./style.css";
 import { PRIORITIES } from "./modules/constants";
 import { Todo, Category, CategoryManager, Note, CheckListItem } from './modules/todos';
 import { toggleCategoryButtonVisibility } from './modules/sidebarManager';
+import { displayCategoryTodos } from "./modules/displayManager";
 
-const general = CategoryManager.createCategory("General", "📄");
+const general = CategoryManager.createCategory("Thisisalongcategory", "📄");
 CategoryManager.createCategory("Gaming", "🎮");
 
-const todo1 = new Todo("Title", "asdasdmahskjdhakjsdjkasdkjaksd", "2022-01-01", PRIORITIES.LOW);
-const todo2 = new Todo("Title2", "todoaskjdaskdakjsdajhksdjahsjkdashjkd", "2023-01-01", PRIORITIES.HIGH);
+const generateTodos = (quantity) => {
+  for(let i = 0; i < quantity; i++) {
+    const todo = new Todo("Title", `this is the aisdaokjsdhnkasdhjkaksjdhajksd number ${i}`, '2023', PRIORITIES.LOW);
+    general.addTodo(todo);
+  }
+}
 
-general.addTodo(todo1);
-general.addTodo(todo2);
+generateTodos(100);
 
 const toggleButtonVisibilityBtn = document.getElementById("edit-categories-btn");
 toggleButtonVisibilityBtn.addEventListener("click", toggleCategoryButtonVisibility);
+
+displayCategoryTodos(general)
 
 
 // Handle backdrop clicks

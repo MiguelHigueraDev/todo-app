@@ -68,6 +68,8 @@ strong {
 	--secondary-color-active: #34d399;
 	--secondary-bg-color: #475569;
 	--todo-color: #e4e4e7;
+	--error-hover: #f87171;
+	--error-active: #fca5a5;
 }
 
 /* Base layout */
@@ -76,6 +78,10 @@ body {
     grid-template-columns: min-content 1fr;
 	height: 100vh;
 	font-family: "Montserrat", Arial, Helvetica, sans-serif;
+}
+
+i {
+	padding: 2px;
 }
 
 nav {
@@ -91,7 +97,7 @@ main {
 /* Sidebar */
 .sidebar {
 	padding: 20px;
-	width: 300px;
+	width: 330px;
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
@@ -119,7 +125,7 @@ main {
 }
 
 .list-header, .categories-header {
-	margin-bottom: 16px;
+	margin-bottom: 30px;
 }
 
 #category-list {
@@ -135,15 +141,17 @@ main {
 	gap: 10px;
 	font-size: 1.2rem;
 	align-items: center;
-	height: 25px;
 	font-weight: 500;
+
 }
 
 .category-list-item {
 	display: flex;
 	flex-flow: row-reverse nowrap;
+	overflow-wrap: anywhere;
 	gap: 10px;
 	cursor: pointer;
+	font-size: 1.1rem;
 }
 
 .category-list-item:hover {
@@ -176,24 +184,31 @@ footer a:hover {
 	color: var(--secondary-color-active)
 }
 
-.categories-btn {
+.btn {
 	appearance: none;
 	align-self: flex-start;
-	padding: 4px 6px 4px 6px;
-	border-radius: 60%;
+	padding: 6px;
+	border-radius: 100%;
 	border: transparent;
 	cursor: pointer;
 	font-size: 18px;
 }
 
-.categories-btn:hover {
+.btn:hover {
 	background-color: var(--secondary-color-hover);
 }
 
-.categories-btn:active {
+.btn:active {
 	background-color: var(--secondary-color-active);
 }
 
+.btn-delete-todo:hover {
+	background-color: var(--error-hover);
+}
+
+.btn-delete-todo:active {
+	background-color: var(--error-active);
+}
 
 /* Modals */
 .modal {
@@ -277,6 +292,7 @@ footer a:hover {
 	padding: 40px;
 	background-color: white;
 	border-radius: 20px;
+	min-height: 95vh;
 }
 
 .category-info {
@@ -290,7 +306,6 @@ footer a:hover {
 
 .todos-container {
 	display: grid;
-	justify-items: start;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 	gap: 20px;
 }
@@ -314,18 +329,102 @@ footer a:hover {
 .todo {
 	padding: 20px;
 	display: flex;
-	flex-direction: column;
+	flex-flow: column wrap;
+	overflow-wrap: anywhere;
 	gap: 14px;
 	background-color: var(--todo-color);
 	border-radius: 20px;
-	max-width: 400px;
 	width: 100%;
+}
+
+.todo-priority-low {
+	background-color: #75b798;
+}
+
+.todo-priority-medium {
+	background-color: #ffda6a;
+}
+
+.todo-priority-high {
+	background-color: #ea868f;
 }
 
 .todo h4 {
 	font-weight: 600;
 }
 
+.todo-button-container {
+	display: flex;
+	flex-direction: row-reverse;
+	gap: 10px;
+}
+
 .hidden {
 	visibility: hidden;
+}
+
+/* Responsive */
+@media only screen and (max-width: 850px) {
+	body {
+		display: flex;
+		height: 100vh;
+		font-family: "Montserrat", Arial, Helvetica, sans-serif;
+	}
+
+	main {
+		width: 100%;
+	}
+
+	.sidebar {
+		display: none;
+	}
+
+	.main-container {
+		margin: 10px;
+		padding: 20px;
+		padding-top: 30px;
+	}
+
+	.todos-header {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+	}
+
+	.todos-header button {
+		margin: 0 auto;
+		border-radius: 20px;
+	}
+
+	.todos-header button::after {
+		content: "Add todo";
+		margin-left: 10px;
+		font-weight: 500;
+	}
+
+	.sidebar-visible {
+		display: inherit;
+		width: 100vw;
+	}
+
+	.categories-header {
+		flex-direction: column;
+	}
+
+	.category-info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.category-info span {
+		font-size: 1.5rem;
+	}
+
+	.todos-container {
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+
 }

@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!--<script src="https://kit.fontawesome.com/56299f684d.js" crossorigin="anonymous"></script>-->
+    <!--<script src="https://kit.fontawesome.com/56299f684d.js" crossorigin="anonymous" defer></script>-->
 </head>
 <body>
     <nav class="sidebar">
@@ -18,8 +18,8 @@
             <div class="categories-header">
                 <h3>Categories</h3>
                 <div class="categories-btn-container">
-                    <button id="edit-categories-btn" class="categories-btn"><i class="fa solid fa-pen-to-square"></i></button>
-                    <button id="add-category-modal-btn"  class="categories-btn"><i class="fa solid fa-plus"></i></button>
+                    <button id="edit-categories-btn" class="btn"><i class="fa solid fa-pen-to-square"></i></button>
+                    <button id="add-category-modal-btn" class="btn"><i class="fa solid fa-plus"></i></button>
                 </div>
                 <dialog id="add-category-modal" class="modal">
                     <form id="add-new-category">
@@ -77,11 +77,30 @@
         <div class="main-container">
             <div class="todos-header">
                 <h1 class="category-info"><span class="category-symbol">Select a category to view todos</span><span class="category-name"></span></h1>
-                <button class="todos-header-add-new categories-btn"><i class="fa solid fa-plus"></i></button>
+                <button class="todos-header-add-new btn"><i class="fa solid fa-plus"></i></button>
             </div>
             <div class="todos-container">
                 
             </div>
+            <dialog id="create-todo-modal" class="modal" open>
+                <form id="create-todo">
+                    <h3>Add new todo</h3>
+                    <div class="form-element">
+                        <label for="edit-category-name" class="input-label">Category name</label>
+                        <input type="text" id="edit-category-name" maxlength="20" class="form-input">
+                        <small id="edit-category-name-errors" class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <label for="edit-category-symbol" class="input-label">Category icon</label>
+                        <input type="text" id="edit-category-symbol" maxlength="2" class="form-input">
+                        <small id="edit-category-symbol-hint">Enter a letter or an emoji</small>
+                        <small id="edit-category-symbol-errors" class="input-error-label"></small>
+                    </div>
+                    <div class="form-element">
+                        <button type="button" id="edit-category-btn">Edit</button>
+                    </div>
+                </form>
+            </dialog>
         </div>
     </main>
 </body>
