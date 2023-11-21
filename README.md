@@ -16,12 +16,13 @@ A basic todo app that I made for [the Odin Project](https://www.theodinproject.c
 - JavaScript modules
 - `pointer-events` CSS property (very useful to avoid event delegation)
 - How to use localStorage (read and write)
-- `JSON.stringify()`and `JSON.parse()`
+- `JSON.stringify()` and `JSON.parse()`
 
 ### Build instructions
 
-1. `npm install` to install all the dependencies.
-2. `npm run start` to start development server.
-3. `npm run build` to build for production.
+1. Clone the repository.
+2. `npm install` to install all the dependencies.
+3. `npm run start` to start development server.
+4. `npm run build` to build for production.
 
 `npm run build` will output to `/dist` directory.
