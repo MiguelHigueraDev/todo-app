@@ -253,7 +253,7 @@ const editTodo = (e) => {
 submitEditTodoButton.addEventListener("click", editTodo);
 
 const deleteTodo = (e) => {
-    const index = e.target.parentElement.parentElement.getAttribute("data-id");
+    const index = e.target.parentElement.parentElement.parentElement.getAttribute("data-id");
     const { category } = getTodoAndCategory(index);
     category.removeTodo(index);
     displayCategoryTodos(category);
