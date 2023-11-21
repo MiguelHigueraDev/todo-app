@@ -9,7 +9,7 @@
     "start": "webpack serve --open --config webpack.dev.js"
   },
   "author": "MiguelHigueraDev",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
