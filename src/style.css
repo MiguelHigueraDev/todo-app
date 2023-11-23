@@ -352,7 +352,8 @@ footer a:hover {
 .todos-footer {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-end;
+	flex-grow: 1;
 }
 
 .todos-footer p {
