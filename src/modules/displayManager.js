@@ -1,4 +1,5 @@
-import { format, parseISO } from "date-fns";
+import { formatRelative, parseISO } from "date-fns";
+import { enUS } from "date-fns/esm/locale";
 import formValidator from "./formValidator";
 import responsiveManager from "./responsiveManager";
 import { CategoryManager, Todo } from "./todos";
@@ -94,8 +95,22 @@ const createTodoFooter = (date) => {
     const todoFooter = document.createElement("div");
     todoFooter.classList.add("todos-footer");
 
+    // Format date
     const dueDate = document.createElement("p");
-    dueDate.textContent = format(parseISO(date), "MM/dd/yyyy");
+    const dateFormat = {
+        lastWeek: "'last' eeee",
+        yesterday: "'yesterday'",
+        today: "'today'",
+        tomorrow: "'tomorrow'",
+        nextWeek: "eeee",
+        other: 'P'
+    }
+
+    const locale = {
+        ...enUS,
+        formatRelative: token => dateFormat[token],
+    };
+    dueDate.textContent = formatRelative(parseISO(date), Date.now(), { locale });
 
     // Buttons
     const buttonContainer = document.createElement("div");
